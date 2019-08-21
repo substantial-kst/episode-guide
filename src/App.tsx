@@ -1,6 +1,6 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
-import Search from './Search/Search';
+import Search from './Pages/Search';
 import './App.css';
 
 const App: React.FC = () => {
