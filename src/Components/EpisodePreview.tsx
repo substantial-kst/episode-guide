@@ -2,20 +2,20 @@ import * as React from 'react';
 import EpisodeIdentifier from './EpisodeIdentifier';
 import TextSummary from './TextSummary';
 
-export interface Props {
+type Props = {
   image: string;
   title: string;
   summary: string;
   episode: string;
-}
+};
 
-const EpisodePreview = ({ image, title, summary, episode }: Props) => {
+const EpisodePreview: React.FunctionComponent<Props> = props => {
   return (
     <div>
-      <img src={image} />
-      <h2>{title}</h2>
-      <EpisodeIdentifier episode={episode} />
-      <TextSummary summary={summary} />
+      <img src={props.image} style={{ maxWidth: '400px' }} />
+      <h2>{props.title}</h2>
+      <EpisodeIdentifier episode={props.episode} />
+      <TextSummary summary={props.summary} />
     </div>
   );
 };
