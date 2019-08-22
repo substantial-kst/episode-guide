@@ -1,11 +1,13 @@
 import * as React from 'react';
 
-type Props = {
+interface Props {
   episode: string;
-};
+}
 
 const EpisodeIdentifier: React.FunctionComponent<Props> = props => (
-  <p>{props.episode}</p>
+  <p>
+    <i>{props.episode}</i>
+  </p>
 );
 
 export default EpisodeIdentifier;

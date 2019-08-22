@@ -1,8 +1,8 @@
 import * as React from 'react';
 
-type Props = {
+interface Props {
   summary: string;
-};
+}
 
 const TextSummary: React.FunctionComponent<Props> = props => (
   <p>{props.summary}</p>
