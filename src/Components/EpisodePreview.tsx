@@ -12,7 +12,7 @@ type Props = {
 const EpisodePreview: React.FunctionComponent<Props> = props => {
   return (
     <div>
-      <img src={props.image} style={{ maxWidth: '400px' }} />
+      <img src={props.image} style={{ maxWidth: '450px' }} />
       <h2>{props.title}</h2>
       <EpisodeIdentifier episode={props.episode} />
       <TextSummary summary={props.summary} />
