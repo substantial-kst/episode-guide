@@ -1,6 +1,6 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
-import Search from './Pages/Search';
+import Search from './pages/Search';
 import './App.css';
 
 // All KOTH data, fetch:
