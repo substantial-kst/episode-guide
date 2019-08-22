@@ -9,7 +9,7 @@ export default (props: Props) => {
   return (
     <div>
       {props.episodes.map((ep: Episode, i: number) => (
-        <EpisodePreview {...ep} key={i} />
+        <EpisodePreview episode={ep} key={i} />
       ))}
     </div>
   );

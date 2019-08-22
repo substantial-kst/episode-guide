@@ -2,17 +2,21 @@ import React from 'react';
 import EpisodeIdentifier from './EpisodeIdentifier';
 import TextSummary from './TextSummary';
 
-const EpisodePreview: React.FC<Episode> = props => {
+interface Props {
+    episode: Episode
+}
+
+const EpisodePreview: React.FC<Props> = ({ episode }) => {
   return (
     <div>
       <img
         alt="Episode Screencap"
-        src={props.image}
+        src={episode.image}
         style={{ maxWidth: '350px' }}
       />
-      <h3>{props.title}</h3>
-      <EpisodeIdentifier episode={props.id} />
-      <TextSummary summary={props.summary} />
+      <h3>{episode.title}</h3>
+      <EpisodeIdentifier episode={episode.id} />
+      <TextSummary summary={episode.summary} />
     </div>
   );
 };
