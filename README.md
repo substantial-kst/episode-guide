@@ -42,3 +42,39 @@ You don’t have to ever use `eject`. The curated feature set is suitable for sm
 You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
 To learn React, check out the [React documentation](https://reactjs.org/).
+
+## Data API
+
+https://3578rll5mf.execute-api.us-west-2.amazonaws.com/dev/query
+
+### Query Parameters
+    --------------- ** REQUIRED ** -------------------
+    p       - Program (Show)
+    --------------- GENERAL SEARCH -------------------
+    q       - All-purpose query parameter
+                * Title
+                * Character
+                * Tags
+                * Guest Stars
+    --------------- ADVANCED SEARCH ------------------
+    e       - Episode index (Exact match)
+    s       - Season (Exact match)
+    t       - Title (Contains)
+    d       - Description aka Summary (Contains)
+    c       - Character (Array contains)
+    g       - Guest Star (Array contains)
+    tags    - Tags (Array contains)
+    --------------------------------------------------
+    dd      - Date (Air date)
+    mm      - Month (Air date)
+    yy      - Year (Air date)
+    --------------------------------------------------
+    u       - Union type ('e' = match exact combination; 'a' = match any)
+    
+## Examples
+
+* [King of the Hill, Season 1](https://3578rll5mf.execute-api.us-west-2.amazonaws.com/dev/query?p=koth&s=1)
+* [King of the Hill, Episodes featuring Chuck Mangione](https://3578rll5mf.execute-api.us-west-2.amazonaws.com/dev/query?p=koth&g=Chuck%20Mangione)
+* [King of the Hill, Episodes with a Title that contains 'of'](https://3578rll5mf.execute-api.us-west-2.amazonaws.com/dev/query?p=koth&t=of)
+* [King of the Hill, Episodes with a Title that contains 'of' -AND- originally aired in March](https://3578rll5mf.execute-api.us-west-2.amazonaws.com/dev/query?p=koth&t=of&mm=03)
+* [King of the Hill, Episodes with a Title that contains 'of' -OR- originally aired in March](https://3578rll5mf.execute-api.us-west-2.amazonaws.com/dev/query?p=koth&t=of&mm=03&u=a)
