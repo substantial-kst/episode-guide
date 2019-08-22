@@ -46,7 +46,7 @@ let rejecter;
 
 const getS3Json = function(event, showKey) {
     s3.getObject({
-        Bucket: 'kellytowle.name',
+        Bucket: 'episode-guide',
         Key: `data/${showKey}/${showKey}.json`
     }, (err, data) => {
         if (err) {
@@ -239,7 +239,10 @@ const filterData = function (event, jsonDataString) {
         }
     }
     resolver({
-        statusCode: 200,
+        statusCode: 201,
+        headers: {
+            "Access-Control-Allow-Origin": String(event.headers.origin)
+        },
         body: JSON.stringify({
             count: filtered.length,
             query: queryString,
@@ -253,6 +256,12 @@ exports.handler = (event) => {
         resolver = resolve;
         rejecter = reject;
 
+        if (!event || !event.queryStringParameters) {
+            resolver({
+                statusCode: 200,
+                body: `No query parameters available: ${JSON.stringify(event)}`
+            })
+        }
         const showKey = event.queryStringParameters[PARAMS.SHOW_KEY];
         getS3Json(event, showKey);
     });
