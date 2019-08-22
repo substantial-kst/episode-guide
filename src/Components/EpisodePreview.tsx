@@ -13,5 +13,4 @@ const EpisodePreview: React.FC<Episode> = props => {
   );
 };
 
-
 export default EpisodePreview;
