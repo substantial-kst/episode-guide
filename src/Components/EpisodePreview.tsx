@@ -2,12 +2,12 @@ import * as React from 'react';
 import EpisodeIdentifier from './EpisodeIdentifier';
 import TextSummary from './TextSummary';
 
-type Props = {
+interface Props {
   image: string;
   title: string;
   summary: string;
   episode: string;
-};
+}
 
 const EpisodePreview: React.FC<Props> = props => {
   return (
