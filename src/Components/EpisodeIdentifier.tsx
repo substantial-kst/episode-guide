@@ -4,7 +4,7 @@ interface Props {
   episode: string;
 }
 
-const EpisodeIdentifier: React.FunctionComponent<Props> = props => (
+const EpisodeIdentifier: React.FC<Props> = props => (
   <p>
     <i>{props.episode}</i>
   </p>

@@ -9,7 +9,7 @@ type Props = {
   episode: string;
 };
 
-const EpisodePreview: React.FunctionComponent<Props> = props => {
+const EpisodePreview: React.FC<Props> = props => {
   return (
     <div>
       <img src={props.image} style={{ maxWidth: '350px' }} />
