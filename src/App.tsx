@@ -15,14 +15,14 @@ const App: React.FC = () => {
             <Link to="/">Home</Link>
           </li>
           <li>
-            <Link to="/search">King of the Hill</Link>
+            <Link to="/koth/search">King of the Hill</Link>
           </li>
         </ul>
 
         <hr />
 
         <Route exact path="/" />
-        <Route path="/search" component={Search} />
+        <Route path="/:programId/search" component={Search} />
       </div>
     </Router>
   );
