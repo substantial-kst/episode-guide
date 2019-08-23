@@ -4,7 +4,7 @@ import EpisodeList from '../components/EpisodeList';
 import OmniboxSearch from '../components/OmniboxSearch';
 
 type Props = {
-  programId: string
+  programId: string;
 };
 
 const Search: React.FunctionComponent<Props> = props => {

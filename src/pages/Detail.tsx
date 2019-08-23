@@ -7,11 +7,7 @@ interface Props {
 const Detail: React.FC<Props> = ({ episodeId }) => {
   // fetch episode by program & id
 
-  return (
-    <div>
-      <p>{episodeId}</p>
-    </div>
-  );
+  return <div></div>;
 };
 
 export default Detail;

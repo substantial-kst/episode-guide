@@ -1,13 +1,14 @@
 import * as React from 'react';
+import { Link } from 'react-router-dom';
 import EpisodePreview from './EpisodePreview';
-import styled from "@emotion/styled";
+import styled from '@emotion/styled';
 
 interface Props {
   episodes: Episode[];
 }
 
 const Wrapper = styled.div`
-    width: 70%;
+  width: 70%;
 `;
 
 export default (props: Props) => {
