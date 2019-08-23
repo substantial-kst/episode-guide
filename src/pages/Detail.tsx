@@ -26,15 +26,19 @@ const Detail: React.FC<{ episode: Episode; id: string }> = ({
   const [e, setEpisode] = React.useState<Episode>(emptyEpisode);
 
   React.useEffect((): void => {
-    let query: {
-      programId: string;
-      id: string;
-    } = {
-      programId: 'koth',
-      id: id
-    };
+    if (episode === null) {
+      let query: {
+        programId: string;
+        id: string;
+      } = {
+        programId: 'koth',
+        id: id
+      };
 
-    fetchData(query).then(episode => setEpisode(episode[0]));
+      fetchData(query).then(episode => setEpisode(episode[0]));
+    } else {
+      setEpisode(episode);
+    }
   }, []);
 
   return (
