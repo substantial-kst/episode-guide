@@ -1,16 +1,22 @@
 import * as React from 'react';
-import { css } from '@emotion/core';
 
-interface Props {
-  name: string;
-}
-
-const color = 'white';
-
-const Detail = ({ name }: Props) => {
+const Detail: React.FC<{ episode: Episode }> = ({ episode }) => {
   return (
     <div>
-      Search Page
+      <img src={episode.image} />
+      <h2>{episode.title}</h2>
+      <p>{episode.id}</p>
+      <p>{episode.summary}</p>
+      <p>
+        {episode.broadcast.month}/{episode.broadcast.date}/
+        {episode.broadcast.year}
+      </p>
+      {episode.characters.map((charcter: string, i: number) => (
+        <span key={i}>{charcter}</span>
+      ))}
+      {episode.guests.map((guest: string, i: number) => (
+        <span key={i}>{guest}</span>
+      ))}
     </div>
   );
 };
