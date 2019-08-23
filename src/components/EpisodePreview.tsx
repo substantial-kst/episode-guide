@@ -25,7 +25,12 @@ const Wrapper = styled.div`
 const EpisodePreview: React.FC<Props> = ({ episode }) => {
   return (
     <Wrapper>
-      <Link to={`/${episode.showCode}/${episode.id}`}>
+      <Link
+        to={{
+          pathname: `/${episode.showCode}/${episode.id}`,
+          state: { episode }
+        }}
+      >
         <EpisodeImage imageUrl={episode.image} size={'thumbnail'} />
         <h3>{episode.title}</h3>
         <EpisodeIdentifier idString={episode.id} />
