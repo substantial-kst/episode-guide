@@ -1,9 +1,7 @@
 import React, { useState } from 'react';
-import { fetchData, queryMap } from '../utils/fetch';
+import { fetchData } from '../utils/fetch';
 import EpisodeList from '../components/EpisodeList';
-// interface SearchResults {
-//     episodes: Episode[]
-// }
+import OmniboxSearch from '../components/OmniboxSearch';
 
 type Props = {
   image: string;
@@ -18,17 +16,24 @@ const Search: React.FunctionComponent<Props> = props => {
   const [results, setResult] = useState(initialState);
   const programId = props.match.params.programId;
 
-  setTimeout(
-    () =>
-      fetchData({ programId: 'koth', season: 2 }).then(response =>
-        setResult(response)
-      ),
-    10
-  );
+  const searchHandler = (query: string): void => {
+    interface searchQuery {
+      programId: string;
+      query: string;
+    }
+
+    const q: searchQuery = {
+      programId: programId,
+      query: query
+    };
+
+    fetchData(q).then(episodes => setResult(episodes));
+  };
 
   return (
     <div>
       <h2>Search Page</h2>
+      <OmniboxSearch searchHandler={searchHandler} />
       <EpisodeList episodes={results} />
     </div>
   );
