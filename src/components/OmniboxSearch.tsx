@@ -1,7 +1,12 @@
 import React, { useState } from 'react';
 import { fetchData } from '../utils/fetch';
 
-const OmniboxSearch: React.FC = () => {
+interface ComponentProps {
+  searchHandler: any;
+}
+
+
+const OmniboxSearch: React.FC<ComponentProps> = ({searchHandler}) => {
   const [query, setQuery] = useState<string>('');
 
   interface omniProps {
