@@ -4,17 +4,12 @@ import EpisodeList from '../components/EpisodeList';
 import OmniboxSearch from '../components/OmniboxSearch';
 
 type Props = {
-  image: string;
-  title: string;
-  match?: any;
-  summary: string;
-  episode: string;
+  programId: string
 };
 
 const Search: React.FunctionComponent<Props> = props => {
   let initialState: Episode[] = [];
   const [results, setResult] = useState(initialState);
-  const programId = props.match.params.programId;
 
   const searchHandler = (query: string): void => {
     interface searchQuery {
@@ -23,7 +18,7 @@ const Search: React.FunctionComponent<Props> = props => {
     }
 
     const q: searchQuery = {
-      programId: programId,
+      programId: props.programId,
       query: query
     };
 
