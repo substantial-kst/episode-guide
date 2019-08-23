@@ -1,7 +1,5 @@
 import React from "react";
 import {Global, css} from "@emotion/core";
-import {Link} from "react-router-dom";
-import Header from "../components/Header";
 
 interface ThemeProps {
     theme: string

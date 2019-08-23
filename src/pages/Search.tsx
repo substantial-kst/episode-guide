@@ -1,9 +1,6 @@
 import React, { useState } from 'react';
-import { fetchData, queryMap } from '../utils/fetch';
+import { fetchData } from '../utils/fetch';
 import EpisodeList from '../components/EpisodeList';
-// interface SearchResults {
-//     episodes: Episode[]
-// }
 
 type Props = {
   programId: string

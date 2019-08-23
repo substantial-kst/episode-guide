@@ -1,7 +1,5 @@
 import React from 'react';
-import {BrowserRouter as Router, Route, Link} from 'react-router-dom';
-// import Basic from "./layouts/Basic";
-// import Search from './pages/Search';
+import {BrowserRouter as Router, Route} from 'react-router-dom';
 import Page from "./pages/Page";
 import './App.css';
 

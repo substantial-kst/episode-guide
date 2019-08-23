@@ -1,9 +1,7 @@
 import React from "react";
-import styled from "@emotion/styled";
 import Basic from "../layouts/Basic";
 import Header from "../components/Header";
 import Search from "./Search";
-// import Search from "./Search";
 
 interface PageProps {
     location: {
