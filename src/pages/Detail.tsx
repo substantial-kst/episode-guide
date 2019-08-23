@@ -1,16 +1,15 @@
 import * as React from 'react';
-import { css } from '@emotion/core';
 
 interface Props {
-  name: string;
+  episodeId: string;
 }
 
-const color = 'white';
+const Detail: React.FC<Props> = ({ episodeId }) => {
+  // fetch episode by program & id
 
-const Detail = ({ name }: Props) => {
   return (
     <div>
-      Search Page
+      <p>{episodeId}</p>
     </div>
   );
 };
