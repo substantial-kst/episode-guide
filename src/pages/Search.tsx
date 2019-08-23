@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { css } from 'emotion';
 import { fetchData, queryMap } from '../utils/fetch';
 import EpisodeList from '../components/EpisodeList';
+import OmniboxSearch from '../components/OmniboxSearch';
 
 const color = 'white';
 
@@ -77,13 +78,13 @@ const Search: React.FunctionComponent<Props> = props => {
   ];
   const [results, setResult] = useState(initialState);
 
-  setTimeout(
-    () =>
-      fetchData({ programId: 'koth', season: 2 }).then(response =>
-        setResult(response)
-      ),
-    1000
-  );
+  // setTimeout(
+  //   () =>
+  //     fetchData({ programId: 'koth', season: 2 }).then(response =>
+  //       setResult(response)
+  //     ),
+  //   1000
+  // );
 
   return (
     <div
@@ -95,6 +96,7 @@ const Search: React.FunctionComponent<Props> = props => {
       })}
     >
       <h2>Search Page</h2>
+      <OmniboxSearch {...{}} />
       <EpisodeList episodes={results} />
     </div>
   );
