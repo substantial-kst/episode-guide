@@ -31,12 +31,21 @@ const Page: React.FC<PageProps> = props => {
 
   const getPageComponent = (props: PageProps) => {
     console.log('Page props: ', props);
-    const currentRoute = props.location.pathname;
+
+    const currentRoute: string = props.location.pathname;
     const episode = getEpisodeFromState(props);
+    const singleEpisodeRoute = /s[0-9]{2}e[0-9]{2}$/;
+    const episodeRouteIdIndex = currentRoute.search(singleEpisodeRoute);
+
     if (currentRoute.indexOf('search') > -1) {
       return <Search programId={getProgramId(props)} />;
-    } else if (episode) {
-      return <Detail episode={episode} />;
+    } else if (episodeRouteIdIndex > -1) {
+      return (
+        <Detail
+          episode={episode}
+          id={currentRoute.substr(episodeRouteIdIndex)}
+        />
+      );
     } else {
       return <LandingPage />;
     }

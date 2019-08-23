@@ -1,4 +1,5 @@
 export const queryMap: Record<string, string> = {
+  id: 'id',
   programId: 'p',
   query: 'q',
   episode: 'e',
