@@ -1,9 +1,10 @@
 import * as React from 'react';
 import { fetchData } from '../utils/fetch';
 
-const Detail: React.FC<{ episode: Episode; id: string }> = ({
+const Detail: React.FC<{ episode: Episode; id: string; programId: string }> = ({
   episode,
-  id
+  id,
+  programId
 }) => {
   const emptyEpisode: Episode = {
     episode: 0,
@@ -31,7 +32,7 @@ const Detail: React.FC<{ episode: Episode; id: string }> = ({
         programId: string;
         id: string;
       } = {
-        programId: 'koth',
+        programId: programId,
         id: id
       };
 

@@ -44,6 +44,7 @@ const Page: React.FC<PageProps> = props => {
         <Detail
           episode={episode}
           id={currentRoute.substr(episodeRouteIdIndex)}
+          programId={getProgramId(props)}
         />
       );
     } else {
