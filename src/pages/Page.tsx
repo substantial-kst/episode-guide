@@ -2,6 +2,7 @@ import React from "react";
 import Basic from "../layouts/Basic";
 import Header from "../components/Header";
 import Search from "./Search";
+import LandingPage from "./LandingPage";
 
 interface PageProps {
     location: {
@@ -20,6 +21,9 @@ const Page: React.FC<PageProps> = props => {
         const currentRoute = props.location.pathname;
         if (currentRoute.indexOf('search') > -1) {
             return (<Search programId={getProgramId(props)} />);
+        }
+        else {
+            return (<LandingPage />)
         }
     };
 
