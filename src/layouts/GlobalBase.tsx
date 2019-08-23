@@ -1,13 +1,14 @@
 import React from "react";
 import {Global, css} from "@emotion/core";
 import {Link} from "react-router-dom";
+import Header from "../components/Header";
 
 interface ThemeProps {
     theme: string
 }
 
-const GlobalBase: React.FC<ThemeProps> = (props) => (
-    <div id='theme-background'>
+const GlobalBase: React.FC<ThemeProps> = ({theme}) => (
+    <div id='theme-background' className={theme}>
         <Global styles={css`
             * { margin: 0; padding: 0; box-sizing: border-box; overflow: scroll; }
             html {
@@ -29,7 +30,6 @@ const GlobalBase: React.FC<ThemeProps> = (props) => (
             }
             
             #theme-background {
-                background-image: url('/king-of-the-hill-background.jpeg');
                 background-size: cover;
                 position:fixed;
                 width: 100%;
@@ -38,19 +38,14 @@ const GlobalBase: React.FC<ThemeProps> = (props) => (
                 background-repeat: no-repeat;
                 filter: blur(5px);
                 opacity: .25;
+                pointer-events: none;
+                
+                &.koth {
+                    background-image: url('/king-of-the-hill-background.jpeg');
+                }
             }
           `}
         />
-        <ul>
-            <li>
-                <Link to="/">Home</Link>
-            </li>
-            <li>
-                <Link to="/koth/search">King of the Hill</Link>
-            </li>
-        </ul>
-
-        <hr />
     </div>
 );
 

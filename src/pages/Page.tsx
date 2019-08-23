@@ -1,0 +1,40 @@
+import React from "react";
+import styled from "@emotion/styled";
+import Basic from "../layouts/Basic";
+import Header from "../components/Header";
+import Search from "./Search";
+// import Search from "./Search";
+
+interface PageProps {
+    location: {
+        pathname: string
+    }
+    match: {
+        params: {
+            programId: string
+        }
+    }
+}
+
+const Page: React.FC<PageProps> = props => {
+    const getPageComponent = (props: PageProps) => {
+        console.log('Page props: ', props)
+        const currentRoute = props.location.pathname;
+        if (currentRoute.indexOf('search') > -1) {
+            return (<Search programId={getProgramId(props)} />);
+        }
+    };
+
+    const getProgramId = (props: PageProps) => {
+        return props.match.params.programId;
+    };
+
+    return (
+        <Basic theme={getProgramId(props)}>
+            <Header/>
+            { getPageComponent(props) }
+        </Basic>
+    );
+};
+
+export default Page;

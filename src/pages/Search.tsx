@@ -6,21 +6,16 @@ import EpisodeList from '../components/EpisodeList';
 // }
 
 type Props = {
-  image: string;
-  title: string;
-  match?: any;
-  summary: string;
-  episode: string;
+  programId: string
 };
 
 const Search: React.FunctionComponent<Props> = props => {
   let initialState: Episode[] = [];
   const [results, setResult] = useState(initialState);
-  const programId = props.match.params.programId;
 
   setTimeout(
     () =>
-      fetchData({ programId: 'koth', season: 2 }).then(response =>
+      fetchData({ programId: props.programId, season: 2 }).then(response =>
         setResult(response)
       ),
     10
