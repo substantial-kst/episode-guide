@@ -9,6 +9,7 @@ const OmniboxSearch: React.FC = () => {
     // character: string;
     // guest: string;
     title: string;
+    union: string;
   }
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
@@ -35,7 +36,8 @@ const OmniboxSearch: React.FC = () => {
       programId: 'koth',
       // character: query,
       // guest: query,
-      title: query
+      title: query,
+      union: 'a'
     };
     return queryProps;
   };

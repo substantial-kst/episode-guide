@@ -96,7 +96,7 @@ const Search: React.FunctionComponent<Props> = props => {
       })}
     >
       <h2>Search Page</h2>
-      <OmniboxSearch {...{}} />
+      <OmniboxSearch searchHandler={setResult} />
       <EpisodeList episodes={results} />
     </div>
   );
