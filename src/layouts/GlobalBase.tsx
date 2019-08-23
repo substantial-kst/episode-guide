@@ -38,8 +38,8 @@ const GlobalBase: React.FC<ThemeProps> = ({theme}) => (
                 opacity: .25;
                 pointer-events: none;
                 
-                &.koth {
-                    background-image: url('/king-of-the-hill-background.jpeg');
+                &.${theme} {
+                    background-image: url('/images/${theme}/background.jpg');
                 }
             }
           `}
