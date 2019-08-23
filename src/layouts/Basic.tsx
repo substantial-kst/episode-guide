@@ -1,15 +1,18 @@
 import React from "react";
 import styled from "@emotion/styled";
 import GlobalBase from "./GlobalBase";
-// const img = import();
+
+interface ThemeProps {
+    theme?: string
+}
 
 const Wrapper = styled.div`
 `;
 
-const Basic: React.FC = (props) => (
+const Basic: React.FC<ThemeProps> = ({ theme, children }) => (
     <Wrapper>
-        <GlobalBase />
-        {props.children}
+        <GlobalBase theme={'koth'} />
+        {children}
     </Wrapper>
 );
 

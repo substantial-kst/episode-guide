@@ -1,31 +1,34 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
+import {BrowserRouter as Router, Route, Link} from 'react-router-dom';
+import Basic from "./layouts/Basic";
 import Search from './pages/Search';
 import './App.css';
 
 // All KOTH data, fetch:
 // https://3578rll5mf.execute-api.us-west-2.amazonaws.com/dev/query?p=koth
 
-const App: React.FC = () => {
-  return (
-    <Router>
-      <div>
-        <ul>
-          <li>
-            <Link to="/">Home</Link>
-          </li>
-          <li>
-            <Link to="/koth/search">King of the Hill</Link>
-          </li>
-        </ul>
+const App: React.FC = (props) => {
+    return (
+        <Router>
+            <Basic {...props}>
+                <div>
+                    <ul>
+                        <li>
+                            <Link to="/">Home</Link>
+                        </li>
+                        <li>
+                            <Link to="/koth/search">King of the Hill</Link>
+                        </li>
+                    </ul>
 
-        <hr />
+                    <hr/>
 
-        <Route exact path="/" />
-        <Route path="/:programId/search" component={Search} />
-      </div>
-    </Router>
-  );
+                    <Route exact path="/"/>
+                    <Route path="/:programId/search" component={Search}/>
+                </div>
+            </Basic>
+        </Router>
+    );
 };
 
 export default App;

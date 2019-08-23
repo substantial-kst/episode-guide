@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { fetchData, queryMap } from '../utils/fetch';
 import EpisodeList from '../components/EpisodeList';
-import Basic from "../layouts/Basic";
 // interface SearchResults {
 //     episodes: Episode[]
 // }
@@ -17,6 +16,7 @@ type Props = {
 const Search: React.FunctionComponent<Props> = props => {
   let initialState: Episode[] = [];
   const [results, setResult] = useState(initialState);
+  const programId = props.match.params.programId;
 
   setTimeout(
     () =>
@@ -27,10 +27,10 @@ const Search: React.FunctionComponent<Props> = props => {
   );
 
   return (
-    <Basic>
+    <div>
       <h2>Search Page</h2>
       <EpisodeList episodes={results} />
-    </Basic>
+    </div>
   );
 };
 
