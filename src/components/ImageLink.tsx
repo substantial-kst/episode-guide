@@ -8,10 +8,13 @@ interface ComponentProps {
 }
 
 const Wrapper = styled.div`
+    max-width: 20vw;
+
     img {
-        max-width: 20vw;
         max-height: 20vh;
-    }    
+        padding: 5px;
+        margin-bottom:10px;
+    }
 `;
 
 const ImageLink:React.FC<ComponentProps> = ({showCode, title}) => (

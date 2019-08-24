@@ -8,15 +8,16 @@ interface ShowLink {
 }
 
 const Wrapper = styled.div`
+    position: fixed;
     display: flex;
-    // flex-direction: row;
+    flex-direction: row;
+    flex-wrap: wrap;
     justify-content: space-around;
     align-items: center;
     height: 100%;
-    width: 80%;
-    position: fixed;
     top: 0;
     left: 10%;
+    width: 80%;
     text-align: center;
 `
 
@@ -28,6 +29,22 @@ const showMapping: ShowLink[] = [
     {
         showCode: 'bburg',
         title: 'Bob\'s Burgers'
+    },
+    {
+        showCode: 'gg',
+        title: 'Golden Girls'
+    },
+    {
+        showCode: 'vb',
+        title: 'Venture Bros.'
+    },
+    {
+        showCode: 'fri',
+        title: 'Friends'
+    },
+    {
+        showCode: 'fra',
+        title: 'Frasier'
     }
 ];
 
