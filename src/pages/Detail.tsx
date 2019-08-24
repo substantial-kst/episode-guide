@@ -1,20 +1,60 @@
 import * as React from 'react';
+import { fetchData } from '../utils/fetch';
 
-const Detail: React.FC<{ episode: Episode }> = ({ episode }) => {
+const Detail: React.FC<{ episode: Episode; id: string; programId: string }> = ({
+  episode,
+  id,
+  programId
+}) => {
+  const emptyEpisode: Episode = {
+    episode: 0,
+    id: '',
+    broadcast: {
+      year: '',
+      month: '',
+      date: ''
+    },
+    title: '',
+    summary: '',
+    characters: [],
+    tags: [],
+    guests: [],
+    image: '',
+    poster: '',
+    showCode: ''
+  };
+
+  const [e, setEpisode] = React.useState<Episode>(emptyEpisode);
+
+  React.useEffect((): void => {
+    if (episode === null) {
+      let query: {
+        programId: string;
+        id: string;
+      } = {
+        programId: programId,
+        id: id
+      };
+
+      fetchData(query).then(episode => setEpisode(episode[0]));
+    } else {
+      setEpisode(episode);
+    }
+  }, []);
+
   return (
     <div>
-      <img src={episode.image} />
-      <h2>{episode.title}</h2>
-      <p>{episode.id}</p>
-      <p>{episode.summary}</p>
+      <img src={e.image} />
+      <h2>{e.title}</h2>
+      <p>{e.id}</p>
+      <p>{e.summary}</p>
       <p>
-        {episode.broadcast.month}/{episode.broadcast.date}/
-        {episode.broadcast.year}
+        {e.broadcast.month}/{e.broadcast.date}/{e.broadcast.year}
       </p>
-      {episode.characters.map((charcter: string, i: number) => (
+      {e.characters.map((charcter: string, i: number) => (
         <span key={i}>{charcter}</span>
       ))}
-      {episode.guests.map((guest: string, i: number) => (
+      {e.guests.map((guest: string, i: number) => (
         <span key={i}>{guest}</span>
       ))}
     </div>
