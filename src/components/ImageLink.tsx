@@ -9,6 +9,7 @@ interface ComponentProps {
 
 const Wrapper = styled.div`
     max-width: 20vw;
+    margin: 20px;
 
     img {
         max-height: 20vh;

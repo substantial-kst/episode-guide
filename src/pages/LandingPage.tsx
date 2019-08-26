@@ -29,28 +29,28 @@ const showMapping: ShowLink[] = [
     {
         showCode: 'bburg',
         title: 'Bob\'s Burgers'
-    },
-    {
-        showCode: 'gg',
-        title: 'Golden Girls'
-    },
-    {
-        showCode: 'vb',
-        title: 'Venture Bros.'
-    },
-    {
-        showCode: 'fri',
-        title: 'Friends'
-    },
-    {
-        showCode: 'fra',
-        title: 'Frasier'
+    // },
+    // {
+    //     showCode: 'gg',
+    //     title: 'Golden Girls'
+    // },
+    // {
+    //     showCode: 'vb',
+    //     title: 'Venture Bros.'
+    // },
+    // {
+    //     showCode: 'fri',
+    //     title: 'Friends'
+    // },
+    // {
+    //     showCode: 'fra',
+    //     title: 'Frasier'
     }
 ];
 
 const LandingPage: React.FC = props => (
     <Wrapper>
-        {showMapping.map(show => (<ImageLink showCode={show.showCode} title={show.title}/>))}
+        {showMapping.map(show => (<ImageLink showCode={show.showCode} title={show.title} key={show.showCode}/>))}
     </Wrapper>
 );
 

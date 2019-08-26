@@ -16,8 +16,6 @@ const renderHeader = (shouldShow:boolean) => {
                         <Link to="/koth/search">King of the Hill</Link>
                     </li>
                 </ul>
-
-                <hr/>
             </div>
         );
     } else {
