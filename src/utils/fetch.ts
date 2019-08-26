@@ -33,7 +33,7 @@ const parseQueryParams = (baseUrl: string, queryParams: any, queryMap: any) => {
 };
 
 export const fetchSeasonCount = (seasonProps: any) => {
-  let baseUrl = `https://3578rll5mf.execute-api.us-west-2.amazonaws.com/dev/season?`;
+  let baseUrl = `https://3578rll5mf.execute-api.us-west-2.amazonaws.com/dev/seasons?`;
 
   const url = parseQueryParams(baseUrl, seasonProps, seasonMap);
 
@@ -42,8 +42,7 @@ export const fetchSeasonCount = (seasonProps: any) => {
   })
       .then(response => response.json())
       .then(jsonData => {
-        console.log('jsonData', jsonData.data);
-        return jsonData.data;
+        return jsonData.count;
       });
 };
 
@@ -52,14 +51,11 @@ export const queryFetch = (queryProps: any) => {
 
   const url = parseQueryParams(baseUrl, queryProps, queryMap);
 
-  console.log('Constructed fetch URL: ', url);
-
   return fetch(url, {
     method: 'GET'
   })
     .then(response => response.json())
     .then(jsonData => {
-      console.log('jsonData', jsonData.data);
       return jsonData.data;
     });
 };
