@@ -56,9 +56,20 @@ const Page: React.FC<PageProps> = props => {
     return props.match.params.programId;
   };
 
+  const shouldShowHeader = (props:PageProps) => {
+    if (props !== undefined) {
+      if (props.location !== undefined) {
+        if (props.location.pathname !== undefined) {
+          return !(props.location.pathname === '/');
+        }
+      }
+    }
+    return true;
+  }
+
   return (
     <Basic theme={getProgramId(props)}>
-      <Header />
+      <Header show={shouldShowHeader(props)}/>
       {getPageComponent(props)}
     </Basic>
   );

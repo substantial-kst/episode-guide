@@ -10,8 +10,10 @@ const s3 = new AWS.S3();
                 * Tags
                 * Guest Stars
     --------------- ADVANCED SEARCH ------------------
+    id      - ID string (Exact match)
     e       - Episode index (Exact match)
     s       - Season (Exact match)
+    n       - Episode number (across seasons)
     t       - Title (Contains)
     d       - Description aka Summary (Contains)
     c       - Character (Array contains)
@@ -24,12 +26,15 @@ const s3 = new AWS.S3();
     --------------------------------------------------
     u       - Union type ('e' = match exact combination; 'a' = match any)
 */
+let showKey;
 
 const PARAMS = {
     SHOW_KEY:       'p',
     GENERAL_QUERY:  'q',
+    EPISODE_ID:     'id',
     SEASON:         's',
     EPISODE:        'e',
+    NUMBER:         'n',
     TITLE:          't',
     DESCRIPTION:    'd',
     CHARACTER:      'c',
@@ -102,11 +107,25 @@ const filterAllItemsByGuest = function (guestName, data) {
     return filterNestedArrayByKeyAndValue('guests', guestName, data);
 };
 
+const filterByEpisodeNumber = function (episodeNumber, data) {
+    const episodeIndex = parseInt(episodeNumber) - 1;
+    const episode = data[episodeIndex];
+    if (episode) {
+        return [episode];
+    } else {
+        return [];
+    }
+};
+
+const filterByEpisodeId = function (episodeId, data) {
+    return data.filter(item => (String(item.id) === episodeId));
+};
+
 const filterBySeasonNumber = function (season, data) {
     return data.filter(item => (String(item.season) === season));
 };
 
-const filterByEpisodeNumber = function (episode, data) {
+const filterByEpisodeOfSeasonNumber = function (episode, data) {
     return data.filter(item => (String(item.episode) === episode));
 };
 
@@ -119,11 +138,19 @@ const isQueryTermInArray = function (term, arr) {
 };
 
 const filterData = function (event, jsonDataString) {
-    const queryString = event.queryStringParameters;
-    queryString.p = undefined;
-    let filtered = JSON.parse(jsonDataString);
+    const queryString = Object.assign({}, event.queryStringParameters);
+    delete queryString.p;
+    const baseData = JSON.parse(jsonDataString);
+    let filtered = [];
+
+    baseData.forEach(season => {
+        season.forEach(episode => filtered.push(episode));
+    });
+    console.log(filtered.length);
+
 
     let titleFiltered = [];
+    let numberFiltered = [];
     let tagFiltered = [];
     let yearFiltered = [];
     let monthFiltered = [];
@@ -143,11 +170,22 @@ const filterData = function (event, jsonDataString) {
                 isQueryTermInArray(query, item.characters)
             );
         });
+    } else if (!!queryString[PARAMS.NUMBER] && Object.keys(queryString).length === 1) {
+        filtered = filterByEpisodeNumber(queryString[PARAMS.NUMBER], filtered);
+    } else if (!!queryString[PARAMS.EPISODE_ID] && Object.keys(queryString).length === 1) {
+        filtered = filterByEpisodeId(queryString[PARAMS.EPISODE_ID], filtered);
     } else {
         if (!!queryString[PARAMS.TITLE]) {
             titleFiltered = filterByEpisodeTitle(queryString[PARAMS.TITLE], filtered);
             if (queryString[PARAMS.UNION_TYPE] !== 'a') {
                 filtered = titleFiltered;
+            }
+        }
+
+        if (!!queryString[PARAMS.NUMBER]) {
+            numberFiltered = filterByEpisodeNumber(queryString[PARAMS.NUMBER], filtered);
+            if (queryString[PARAMS.UNION_TYPE] !== 'a') {
+                filtered = numberFiltered;
             }
         }
 
@@ -187,7 +225,7 @@ const filterData = function (event, jsonDataString) {
         }
 
         if (!!queryString[PARAMS.EPISODE]) {
-            episodeFiltered = filterByEpisodeNumber(queryString[PARAMS.EPISODE], filtered);
+            episodeFiltered = filterByEpisodeOfSeasonNumber(queryString[PARAMS.EPISODE], filtered);
             if (queryString[PARAMS.UNION_TYPE] !== 'a') {
                 filtered = episodeFiltered;
             }
@@ -210,6 +248,7 @@ const filterData = function (event, jsonDataString) {
         if (queryString[PARAMS.UNION_TYPE] === 'a') {
             const mergeArr = [].concat(
                 titleFiltered,
+                numberFiltered,
                 tagFiltered,
                 guestFiltered,
                 seasonFiltered,
@@ -238,8 +277,14 @@ const filterData = function (event, jsonDataString) {
             filtered = mergeArr;
         }
     }
+
+    filtered.forEach((item, idx) => {
+        item.showCode = showKey;
+        filtered[idx] = item;
+    });
+
     resolver({
-        statusCode: 201,
+        statusCode: 200,
         headers: {
             "Access-Control-Allow-Origin": String(event.headers.origin)
         },
@@ -262,7 +307,7 @@ exports.handler = (event) => {
                 body: `No query parameters available: ${JSON.stringify(event)}`
             })
         }
-        const showKey = event.queryStringParameters[PARAMS.SHOW_KEY];
+        showKey = event.queryStringParameters[PARAMS.SHOW_KEY];
         getS3Json(event, showKey);
     });
 };

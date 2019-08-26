@@ -1,27 +1,30 @@
 import React from "react";
+import styled from "@emotion/styled";
 import {Link} from "react-router-dom";
 
 interface ComponentProps {
     showCode: string
+    title: string
 }
 
-const showMapping: Record<string, any> = {
-    koth: {
-        img: '',
-        title: 'King of the Hill'
-    },
-    bburg: {
-        img: '',
-        title: 'Bob\'s Burgers'
+const Wrapper = styled.div`
+    max-width: 20vw;
+    margin: 20px;
+
+    img {
+        max-height: 20vh;
+        padding: 5px;
+        margin-bottom:10px;
     }
+`;
 
-};
-
-const ImageLink:React.FC<ComponentProps> = props => (
-    <Link to={`/${props.showCode}/search`}>
-        <img src={showMapping[props.showCode].img} />
-        <h3>{showMapping[props.showCode].title}</h3>
-    </Link>
+const ImageLink:React.FC<ComponentProps> = ({showCode, title}) => (
+    <Wrapper>
+        <Link to={`/${showCode}/search`}>
+            <img src={`/images/${showCode}/link.jpg`} alt={title} />
+            <h3>{title}</h3>
+        </Link>
+    </Wrapper>
 );
 
 export default ImageLink;

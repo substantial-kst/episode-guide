@@ -12,9 +12,9 @@ const Wrapper = styled.div<Props>`
     position: absolute;
     left: 0;
     top:0;
-    padding: 5px;
-    border: 1px solid #333;
     margin: 10px 10px 0;
+    border: 1px solid #333;
+    padding: 5px;
     box-shadow:1px 3px 4px rgba(0,0,0,.25);
     background-color: #fff;
     
