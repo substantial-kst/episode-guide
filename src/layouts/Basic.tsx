@@ -10,7 +10,7 @@ const Wrapper = styled.div`
 `;
 
 const Basic: React.FC<ThemeProps> = ({ theme, children }) => (
-    <Wrapper>
+    <Wrapper data-theme={theme}>
         <GlobalBase theme={theme} />
         {children}
     </Wrapper>

@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { fetchData } from '../utils/fetch';
+import { queryFetch } from '../utils/fetch';
 import EpisodeIdentifier from '../components/EpisodeIdentifier';
 import EpisodeImage from '../components/EpisodeImage';
 import TextSummary from '../components/TextSummary';
@@ -40,7 +40,7 @@ const Detail: React.FC<{ episode: Episode; id: string; programId: string }> = ({
         id: id
       };
 
-      fetchData(query).then(episode => setEpisode(episode[0]));
+      queryFetch(query).then(episode => setEpisode(episode[0]));
     } else {
       setEpisode(episode);
     }

@@ -1,19 +1,32 @@
 import React from "react";
 import {Link} from "react-router-dom";
 
-const Header: React.FC = () => (
-    <div>
-        <ul>
-            <li>
-                <Link to="/">Home</Link>
-            </li>
-            <li>
-                <Link to="/koth/search">King of the Hill</Link>
-            </li>
-        </ul>
+interface HeaderProps {
+    show: boolean
+}
+const renderHeader = (shouldShow:boolean) => {
+    if (shouldShow) {
+        return (
+            <div>
+                <ul>
+                    <li>
+                        <Link to="/">Home</Link>
+                    </li>
+                    <li>
+                        <Link to="/koth/search">King of the Hill</Link>
+                    </li>
+                </ul>
+            </div>
+        );
+    } else {
+        return (
+            <div></div>
+                );
+    }
+}
 
-        <hr/>
-    </div>
-);
+const Header: React.FC<HeaderProps> = ({show}) => {
+    return renderHeader(show);
+};
 
 export default Header;
