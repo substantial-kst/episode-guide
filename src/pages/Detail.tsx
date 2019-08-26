@@ -58,10 +58,6 @@ const Detail: React.FC<{ episode: Episode; id: string; programId: string }> = ({
     }
   `;
 
-  const context = useContext(SearchContext);
-
-  console.log('context', context);
-
   return (
     <Wrapper>
       <EpisodeImage imageUrl={e.image} />
