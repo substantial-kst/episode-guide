@@ -4,6 +4,7 @@ import Header from '../components/Header';
 import Search from './Search';
 import LandingPage from './LandingPage';
 import Detail from './Detail';
+import Browse from "./Browse";
 
 interface PageProps {
   location: {
@@ -47,6 +48,8 @@ const Page: React.FC<PageProps> = props => {
           programId={getProgramId(props)}
         />
       );
+    } else if (!!getProgramId(props)) {
+      return <Browse programId={getProgramId(props)}/>
     } else {
       return <LandingPage />;
     }
