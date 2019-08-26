@@ -20,7 +20,7 @@ const Wrapper = styled.div`
 
 const ImageLink:React.FC<ComponentProps> = ({showCode, title}) => (
     <Wrapper>
-        <Link to={`/${showCode}`}>
+        <Link to={`/${showCode}/browse/1`}>
             <img src={`/images/${showCode}/link.jpg`} alt={title} />
             <h3>{title}</h3>
         </Link>

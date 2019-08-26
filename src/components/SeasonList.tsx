@@ -1,4 +1,15 @@
 import React from "react";
+import { Link } from "react-router-dom";
+import styled from "@emotion/styled";
+
+interface Props {
+    programId: any;
+    selectedSeasonNumber: number
+}
+
+const Wrapper = styled.div`
+    width:30%;
+`;
 
 const sampleData:any[] = [
     {
@@ -41,20 +52,26 @@ const sampleData:any[] = [
         "name": "Season 13", "episodeCount": 24, "startDate": "2008-09-28", "endDate": "2009-09-13"
     }];
 
-const seasonPreview = (seasonArr:any[]) => {
-    return seasonArr.map(season => (
-        <div>
-            <h3>{season.name}</h3>
-            <p>Episodes: {season.episodeCount}</p>
-            <span>{season.startDate} - {season.endDate}</span>
-        </div>
-    ))
-};
+const SeasonList: React.FC<Props> = (props) => {
+    const seasonPreview = (seasonArr:any[]) => {
+        return seasonArr.map((season, idx) => (
+            <Link
+                to={`/${props.programId}/browse/${idx + 1}`}
+                className={idx === props.selectedSeasonNumber - 1 ? 'selected' : ''}
+                key={idx}
+            >
+                <h3>{season.name}</h3>
+                <p>Episodes: {season.episodeCount}</p>
+                <span>{season.startDate} - {season.endDate}</span>
+            </Link>
+        ))
+    };
 
-const SeasonList: React.FC = (props:any) => (
-    <div>
-        {seasonPreview(sampleData)}
-    </div>
-);
+    return (
+        <Wrapper>
+            {seasonPreview(sampleData)}
+        </Wrapper>
+    );
+};
 
 export default SeasonList

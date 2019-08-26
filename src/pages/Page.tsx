@@ -48,8 +48,8 @@ const Page: React.FC<PageProps> = props => {
           programId={getProgramId(props)}
         />
       );
-    } else if (!!getProgramId(props)) {
-      return <Browse programId={getProgramId(props)}/>
+    } else if (!!getProgramId(props) && currentRoute.indexOf('browse') > -1) {
+      return <Browse programId={getProgramId(props)} location={props.location} match={props.match} />
     } else {
       return <LandingPage />;
     }

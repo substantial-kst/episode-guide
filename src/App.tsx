@@ -10,6 +10,7 @@ const App: React.FC = props => {
         <Route exact path="/" component={Page} />
         {/*<Route path="/:programId/search" component={Search}/>*/}
         <Route exact path="/:programId" component={Page} />
+        <Route exact path="/:programId/browse/:season" component={Page} />
         <Route exact path="/:programId/search" component={Page} />
         <Route exact path="/:programId/:episodeId" component={Page} />
       </Switch>
