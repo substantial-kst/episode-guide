@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { fetchData } from '../utils/fetch';
+import { queryFetch } from '../utils/fetch';
 import EpisodeList from '../components/EpisodeList';
 import OmniboxSearch from '../components/OmniboxSearch';
 
@@ -22,7 +22,7 @@ const Search: React.FunctionComponent<Props> = props => {
       query: query
     };
 
-    fetchData(q).then(episodes => setResult(episodes));
+    queryFetch(q).then(episodes => setResult(episodes));
   };
 
   return (
