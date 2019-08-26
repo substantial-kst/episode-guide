@@ -11,7 +11,7 @@ const Wrapper = styled.div<Props>`
   height: ${(props: Props) =>
     props.size === 'thumbnail' ? 'calc(100% - 20px)' : '300px'};
   position: ${(props: Props) =>
-    props.size === 'thumbnail' ? 'absoute' : 'relative'};
+    props.size === 'thumbnail' ? 'absolute' : 'relative'};
   left: 0;
   top: 0;
   padding: 5px;

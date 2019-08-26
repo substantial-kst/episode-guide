@@ -48,7 +48,7 @@ const Detail: React.FC<{ episode: Episode; id: string; programId: string }> = ({
 
   const Wrapper = styled.div`
     position: relative;
-    padding: 20px;
+    padding: 20pxv;
     width: 90%;
     margin: 10px 5%;
     overflow: hidden;
@@ -63,7 +63,7 @@ const Detail: React.FC<{ episode: Episode; id: string; programId: string }> = ({
       <EpisodeImage imageUrl={e.image} />
       <h3>{e.title}</h3>
       <EpisodeIdentifier idString={e.id} />
-      <TextSummary summary={e.summary} context={'preview'} />
+      <TextSummary summary={e.summary} />
       <p>
         {e.broadcast.month}/{e.broadcast.date}/{e.broadcast.year}
       </p>
