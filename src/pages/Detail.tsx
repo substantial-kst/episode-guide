@@ -5,9 +5,6 @@ import EpisodeImage from '../components/EpisodeImage';
 import TextSummary from '../components/TextSummary';
 import styled from '@emotion/styled';
 
-import { useContext } from 'react';
-import SearchContext from '../context/SearchContext';
-
 const Detail: React.FC<{ episode: Episode; id: string; programId: string }> = ({
   episode,
   id,
@@ -60,6 +57,10 @@ const Detail: React.FC<{ episode: Episode; id: string; programId: string }> = ({
       line-height: 1.6em;
     }
   `;
+
+  const context = useContext(SearchContext);
+
+  console.log('context', context);
 
   return (
     <Wrapper>
