@@ -1,14 +1,18 @@
-import React, { useState } from 'react';
+import React, { useState, useContext, StatelessComponent } from 'react';
 import { queryFetch } from '../utils/fetch';
 import EpisodeList from '../components/EpisodeList';
 import OmniboxSearch from '../components/OmniboxSearch';
+import SearchContext from '../context/SearchContext';
 
 type Props = {
   programId: string;
 };
 
 const Search: React.FunctionComponent<Props> = props => {
-  let initialState: Episode[] = [];
+  const context = useContext(SearchContext);
+
+  const initialState: Episode[] = [];
+
   const [results, setResult] = useState(initialState);
 
   const searchHandler = (query: string): void => {
