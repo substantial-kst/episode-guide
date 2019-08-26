@@ -27,6 +27,7 @@ const Search: React.FunctionComponent<Props> = props => {
     };
 
     queryFetch(q).then(episodes => setResult(episodes));
+    console.log('context', context);
   };
 
   return (
