@@ -49,7 +49,7 @@ const Detail: React.FC<{ episode: Episode; id: string; programId: string }> = ({
   const Wrapper = styled.div`
     position: relative;
     padding: 20pxv;
-    width: 90%;
+    max-width: 800px;
     margin: 10px 5%;
     overflow: hidden;
 
