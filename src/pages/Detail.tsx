@@ -1,5 +1,9 @@
 import * as React from 'react';
 import { fetchData } from '../utils/fetch';
+import EpisodeIdentifier from '../components/EpisodeIdentifier';
+import EpisodeImage from '../components/EpisodeImage';
+import TextSummary from '../components/TextSummary';
+import styled from '@emotion/styled';
 
 const Detail: React.FC<{ episode: Episode; id: string; programId: string }> = ({
   episode,
@@ -42,12 +46,24 @@ const Detail: React.FC<{ episode: Episode; id: string; programId: string }> = ({
     }
   }, []);
 
+  const Wrapper = styled.div`
+    position: relative;
+    padding: 20px;
+    width: 90%;
+    margin: 10px 5%;
+    overflow: hidden;
+
+    > * {
+      line-height: 1.6em;
+    }
+  `;
+
   return (
-    <div>
-      <img src={e.image} />
-      <h2>{e.title}</h2>
-      <p>{e.id}</p>
-      <p>{e.summary}</p>
+    <Wrapper>
+      <EpisodeImage imageUrl={e.image} />
+      <h3>{e.title}</h3>
+      <EpisodeIdentifier idString={e.id} />
+      <TextSummary summary={e.summary} context={'preview'} />
       <p>
         {e.broadcast.month}/{e.broadcast.date}/{e.broadcast.year}
       </p>
@@ -57,7 +73,7 @@ const Detail: React.FC<{ episode: Episode; id: string; programId: string }> = ({
       {e.guests.map((guest: string, i: number) => (
         <span key={i}>{guest}</span>
       ))}
-    </div>
+    </Wrapper>
   );
 };
 
