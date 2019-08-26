@@ -25,7 +25,8 @@ const getS3Json = function(event, showKey) {
                     "Access-Control-Allow-Origin": String(event.headers.origin)
                 },
                 body: JSON.stringify({
-                    count: getSeasonCount(parsed)
+                    count: getSeasonCount(parsed),
+                    seasons: getSeasonData(parsed)
                 })
             });
         }
@@ -34,6 +35,26 @@ const getS3Json = function(event, showKey) {
 
 const getSeasonCount = function(data) {
     return data.length;
+};
+
+const getDateString = function(episodeObj) {
+    const broadcast = episodeObj.broadcast;
+    return `${broadcast.year}-${broadcast.month}-${broadcast.date}`;
+};
+
+const getSeasonData = function(data) {
+    return data.map((season, idx) => {
+        const start = season[0];
+        const end = season[season.length - 1];
+        const startDate = getDateString(start);
+        const endDate  = getDateString(end);
+        return {
+            name: `Season ${idx + 1}`,
+            episodeCount: season.length,
+            startDate,
+            endDate
+        };
+    })
 };
 
 exports.handler = (event) => {
