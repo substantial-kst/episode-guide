@@ -7,7 +7,6 @@ interface Props {
 }
 
 const Wrapper = styled.div<Props>`
-<<<<<<< HEAD
   width: ${(props: Props) => (props.size === 'thumbnail' ? '240px' : '500px')};
   height: ${(props: Props) =>
     props.size === 'thumbnail' ? 'calc(100% - 20px)' : '300px'};
@@ -28,29 +27,6 @@ const Wrapper = styled.div<Props>`
     width: 100%;
     height: 100%;
   }
-=======
-    width: ${(props: Props) => (props.size === 'thumbnail' ? '240px' : '500px')};
-    height: ${(props: Props) => (props.size === 'thumbnail' ? 'calc(100% - 20px)' : '300px')};
-    position: absolute;
-    left: 0;
-    top:0;
-    margin: 10px 10px 0;
-    border: 1px solid #333;
-    padding: 5px;
-    box-shadow:1px 3px 4px rgba(0,0,0,.25);
-    background-color: #fff;
-    
-    div {
-        background-image: url(${(props: Props) => props.imageUrl});
-        background-position: center center;
-        background-size: cover;    
-        width: 100%;
-        height: 100%;
-    }
-    
-    img { display: none; }
-`;
->>>>>>> master
 
   img {
     display: none;

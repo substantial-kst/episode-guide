@@ -1,13 +1,9 @@
 import * as React from 'react';
-<<<<<<< HEAD
-import { fetchData } from '../utils/fetch';
+import { queryFetch } from '../utils/fetch';
 import EpisodeIdentifier from '../components/EpisodeIdentifier';
 import EpisodeImage from '../components/EpisodeImage';
 import TextSummary from '../components/TextSummary';
 import styled from '@emotion/styled';
-=======
-import { queryFetch } from '../utils/fetch';
->>>>>>> master
 
 const Detail: React.FC<{ episode: Episode; id: string; programId: string }> = ({
   episode,
