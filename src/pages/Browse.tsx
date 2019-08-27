@@ -4,11 +4,15 @@ import SeasonList from "../components/SeasonList";
 import EpisodeList from '../components/EpisodeList';
 import styled from "@emotion/styled";
 
-type Props = {
+interface Props {
     programId: string;
-    location: any;
-    match: any;
-};
+    seasonNumber: number;
+}
+
+interface BrowseState {
+    episodes: Episode[];
+}
+
 
 const Wrapper = styled.div`
     display:flex;
@@ -23,11 +27,10 @@ const Wrapper = styled.div`
 `;
 
 const Browse: React.FunctionComponent<Props> = props => {
-    let initialState: Episode[] = [];
+    let initialState: BrowseState = {
+        episodes: []
+    };
     const [results, setResult] = useState(initialState);
-    useEffect(() => {
-        loadData(props.match.params.season);
-    }, []);
 
     const loadData = (season: number): void => {
         interface seasonQuery {
@@ -40,17 +43,19 @@ const Browse: React.FunctionComponent<Props> = props => {
             season
         };
 
-        queryFetch(q).then(episodes => {
-            console.log('Results: ', episodes);
-            setResult(episodes)
+        queryFetch(q).then(apiResults => {
+            console.log('Results: ', apiResults);
+            setResult({ episodes: apiResults })
         });
     };
 
+    useEffect(() => { loadData(props.seasonNumber); }, [props.seasonNumber]);
+
     return (
         <Wrapper>
-            <h2>Browse Episodes</h2>
-            <SeasonList selectedSeasonNumber={props.match.params.season} programId={props.programId}/>
-            <EpisodeList episodes={results} />
+            <h2>Browse Season {props.seasonNumber} Episodes</h2>
+            <SeasonList selectedSeasonNumber={props.seasonNumber} programId={props.programId}/>
+            <EpisodeList episodes={results.episodes} />
         </Wrapper>
     );
 };
