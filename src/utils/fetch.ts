@@ -32,7 +32,7 @@ const parseQueryParams = (baseUrl: string, queryParams: any, queryMap: any) => {
   return parsedUrl;
 };
 
-export const fetchSeasonCount = (seasonProps: any) => {
+export const fetchSeasons = (seasonProps: any) => {
   let baseUrl = `https://3578rll5mf.execute-api.us-west-2.amazonaws.com/dev/seasons?`;
 
   const url = parseQueryParams(baseUrl, seasonProps, seasonMap);
@@ -42,7 +42,7 @@ export const fetchSeasonCount = (seasonProps: any) => {
   })
       .then(response => response.json())
       .then(jsonData => {
-        return jsonData.count;
+        return jsonData.seasons;
       });
 };
 
