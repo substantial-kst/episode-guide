@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import { queryFetch } from '../utils/fetch';
+import { queryFetch, fetchSeasons } from '../utils/fetch';
 import SeasonList from "../components/SeasonList";
 import EpisodeList from '../components/EpisodeList';
 import styled from "@emotion/styled";
@@ -11,6 +11,7 @@ interface Props {
 
 interface BrowseState {
     episodes: Episode[];
+    seasons: Season[];
 }
 
 
@@ -28,11 +29,22 @@ const Wrapper = styled.div`
 
 const Browse: React.FunctionComponent<Props> = props => {
     let initialState: BrowseState = {
-        episodes: []
+        episodes: [],
+        seasons: []
     };
-    const [results, setResult] = useState(initialState);
+    const [seasons, setSeasons] = useState(initialState.seasons);
+    const [episodes, setEpisodes] = useState(initialState.episodes);
 
-    const loadData = (season: number): void => {
+    const loadSeasons = ():void => {
+        if (props.programId) {
+            fetchSeasons({ programId: props.programId })
+                .then((apiResults) => {
+                    setSeasons(apiResults);
+                })
+        }
+    };
+
+    const loadEpisodes = (season: number): void => {
         interface seasonQuery {
             programId: string;
             season: number;
@@ -44,18 +56,18 @@ const Browse: React.FunctionComponent<Props> = props => {
         };
 
         queryFetch(q).then(apiResults => {
-            console.log('Results: ', apiResults);
-            setResult({ episodes: apiResults })
+            setEpisodes(apiResults)
         });
     };
 
-    useEffect(() => { loadData(props.seasonNumber); }, [props.seasonNumber]);
+    useEffect(() => { loadSeasons(); }, [props.programId]);
+    useEffect(() => { loadEpisodes(props.seasonNumber); }, [props.seasonNumber]);
 
     return (
         <Wrapper>
             <h2>Browse Season {props.seasonNumber} Episodes</h2>
-            <SeasonList selectedSeasonNumber={props.seasonNumber} programId={props.programId}/>
-            <EpisodeList episodes={results.episodes} />
+            <SeasonList selectedSeasonNumber={props.seasonNumber} seasons={seasons} programId={props.programId}/>
+            <EpisodeList episodes={episodes} />
         </Wrapper>
     );
 };
