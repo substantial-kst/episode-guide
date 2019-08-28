@@ -17,6 +17,10 @@ const Wrapper = styled.div`
         padding: 10px;
         border-radius: 10px;
         
+        > * {
+            line-height: 1.2em;
+        }
+        
         p, span {
             font-size: .7rem;
             color: black;
@@ -45,7 +49,7 @@ const SeasonList: React.FC<Props> = (props) => {
                     key={idx}
                 >
                     <h3>{season.name}</h3>
-                    <p>{`Episodes: ${season.episodeCount}`}</p>
+                    <span>{`Episodes: ${season.episodeCount}`}</span>
                 </Link>
             ))
         }

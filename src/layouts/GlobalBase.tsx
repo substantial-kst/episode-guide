@@ -74,6 +74,8 @@ const GlobalBase: React.FC = props => {
                 pointer-events: none;
                 z-index: -1;
                 background-image: url(${currentTheme.bgImg});
+                top: 0;
+                left: 0;
             }
           `}
         />

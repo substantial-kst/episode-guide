@@ -1,22 +1,29 @@
-import React from "react";
-import {Link} from "react-router-dom";
+import React, {Fragment, useContext} from "react";
+import {Link, NavLink} from "react-router-dom";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {faArrowLeft} from "@fortawesome/free-solid-svg-icons";
+import { ThemeContext } from "../context/ThemeContext";
 
 interface HeaderProps {
-    show: boolean
+    show: boolean;
 }
-const renderHeader = (shouldShow:boolean) => {
+
+const renderBrowse = (themeKey:string) => {
+    if (themeKey && themeKey !== 'default') {
+        return (
+            <NavLink to={`/${themeKey}/browse`}>Browse</NavLink>
+        );
+    }
+};
+
+const renderHeader = (shouldShow:boolean, themeKey:string) => {
     if (shouldShow) {
         return (
-            <div>
-                <ul>
-                    <li>
-                        <Link to="/">Home</Link>
-                    </li>
-                    <li>
-                        <Link to="/koth/search">King of the Hill</Link>
-                    </li>
-                </ul>
-            </div>
+            <Fragment>
+                <Link to="/"><FontAwesomeIcon icon={faArrowLeft} /> Home</Link>
+                { renderBrowse(themeKey) }
+                <NavLink to={`/${themeKey}/search`}>Search</NavLink>
+            </Fragment>
         );
     } else {
         return (
@@ -26,7 +33,8 @@ const renderHeader = (shouldShow:boolean) => {
 }
 
 const Header: React.FC<HeaderProps> = ({show}) => {
-    return renderHeader(show);
+    const { currentTheme } = useContext(ThemeContext);
+    return renderHeader(show, currentTheme.themeKey);
 };
 
 export default Header;

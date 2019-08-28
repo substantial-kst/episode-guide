@@ -48,23 +48,6 @@ const Detail: React.FC<{ episode: Episode; id: string; programId: string }> = ({
     }
   }, []);
 
-  const Wrapper = styled.div`
-    position: relative;
-    padding: 40px 10%;
-    width: 100%;
-    
-    h1, p {
-      width: 100%;
-      margin: 1em 0 .4em;
-    }
-    
-    ul {
-      padding-left: 2em;
-      list-style-type: disc;    
-    }
-    
-  `;
-
   const guestStars = (e:Episode) => {
     if (e.guests && e.guests.length > 0) {
       return (
@@ -81,7 +64,7 @@ const Detail: React.FC<{ episode: Episode; id: string; programId: string }> = ({
   };
 
   return (
-    <Wrapper>
+    <Fragment>
       <h1>{e.title}</h1>
       <EpisodeImage imageUrl={e.image} />
       <BroadcastDate year={e.broadcast.year} month={e.broadcast.month} date={e.broadcast.date}/>
@@ -92,7 +75,7 @@ const Detail: React.FC<{ episode: Episode; id: string; programId: string }> = ({
       ))}
       {guestStars(e)}
 
-    </Wrapper>
+    </Fragment>
   );
 };
 
