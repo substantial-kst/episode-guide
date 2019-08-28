@@ -61,14 +61,16 @@ const Page: React.FC<PageProps> = props => {
   };
 
   const shouldShowHeader = (props:PageProps) => {
-    if (props !== undefined) {
-      if (props.location !== undefined) {
-        if (props.location.pathname !== undefined) {
-          return !(props.location.pathname === '/');
-        }
-      }
-    }
-    return true;
+    const location = props.location;
+    const pathname = location && location.pathname;
+    const regex = new RegExp(/browse|search/);
+    const match = pathname.match(regex) || ''
+    // @ts-ignore
+    return Boolean(getProgramId(props)
+        && location
+        && pathname
+        && match.length > 0
+    );
   }
 
   return (
