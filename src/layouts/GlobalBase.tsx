@@ -31,21 +31,28 @@ const GlobalBase: React.FC = props => {
     <div id='theme-background' className={currentTheme.themeKey}>
         {linkFont(currentTheme)}
         <Global styles={css`
-            * { margin: 0; padding: 0; box-sizing: border-box; overflow: auto; text-decoration: none; }
+            * { margin: 0; padding: 0; box-sizing: border-box; text-decoration: none; line-height: 1.4em; }
             html {
                 font-family: "Heebo";
                 font-size: 20px;
             }
             html, body {  width: 100%; height: 100%; }
-            h1, h2, h3, h4, h5, h6, div, header, footer, aside, article, li {
+            h1, h2, h3, h4, h5, h6, div, header, footer, aside, article, ul, ol {
                 display: block;
             }
             a { color: #333; }
             
             h1 {
                 font-size:3rem;
-                line-height: 1.6em;
+                line-height: 1.2em;
                 letter-spacing: .01em;
+            }
+            
+            ul, ol {
+                margin: auto;
+                padding: auto;
+                box-sizing: border-box;
+                overflow: auto;
             }
             
             img {

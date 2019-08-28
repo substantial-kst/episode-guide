@@ -20,6 +20,8 @@ interface PageProps {
   };
 }
 
+const singleEpisodeRegex = /s[0-9]{2}e[0-9]{2}$/;
+
 const Page: React.FC<PageProps> = props => {
   const Theme:IThemeContext = useContext(ThemeContext);
 
@@ -40,11 +42,9 @@ const Page: React.FC<PageProps> = props => {
   };
 
   const getPageComponent = (props: PageProps) => {
-    console.log('Page props: ', props);
     const currentRoute: string = props.location.pathname;
     const episode = getEpisodeFromState(props);
-    const singleEpisodeRoute = /s[0-9]{2}e[0-9]{2}$/;
-    const episodeRouteIdIndex = currentRoute.search(singleEpisodeRoute);
+    const episodeRouteIdIndex = currentRoute.search(singleEpisodeRegex);
 
     if (currentRoute.indexOf('search') > -1) {
       return <Search programId={getProgramId(props)} />;
@@ -67,8 +67,7 @@ const Page: React.FC<PageProps> = props => {
     const location = props.location;
     const pathname = location && location.pathname;
     const regex = new RegExp(/browse|search/);
-    const match = pathname.match(regex) || ''
-    // @ts-ignore
+    const match = pathname.match(regex) || pathname.match(singleEpisodeRegex) || '';
     return Boolean(getProgramId(props)
         && location
         && pathname
