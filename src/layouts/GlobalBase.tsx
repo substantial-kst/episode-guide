@@ -1,36 +1,20 @@
-import React from "react";
+import React, { useContext } from "react";
+import { ThemeContext, ThemeObj } from '../context/ThemeContext';
 import {Global, css} from "@emotion/core";
 
-interface ThemeProps {
-    theme: string
-}
-
-const themes: Record<string, any> = {
-    koth: {
-        color: '#ff0d1d',
-        font: "Hepta+Slab:600"
-    },
-    bburg: {
-        color: '#fade00',
-        font: "Secular+One"
-    }
-};
-
-const linkFont = (theme: string) => {
-    if (!!theme) {
+const linkFont = (currentTheme:any) => {
+    if (!!currentTheme.font) {
+        const fontName = currentTheme.font.replace('+',' ').replace(/:[0-9]*/,'')
         return (
             <div>
-                <link href={`https://fonts.googleapis.com/css?family=${themes[theme].font}&display=swap`} rel="stylesheet" />
-                <Global styles={css`                            
-                    @font-face {
-                        font-family: '${theme}';
-                        src: url('/fonts/${theme}/${theme}.ttf') format('truetype');
-                    }
-                    
+                <link href={`https://fonts.googleapis.com/css?family=${currentTheme.font}&display=swap`} rel="stylesheet" />
+                <Global styles={css`
+                    * { font-family: '${fontName}'; }
+                            
                     h1, h2, h3 {
-                        font-family: '${themes[theme].font.replace('+',' ').replace(/:[0-9]*/,'')}';
-                        color: ${themes[theme].color};
+                        color: ${currentTheme.color};
                         font-weight: bold;
+                        text-shadow: 2px 2px 1px rgba(16,16,16,.2);
                     }
                 `}/>
             </div>
@@ -39,11 +23,15 @@ const linkFont = (theme: string) => {
     return;
 };
 
-const GlobalBase: React.FC<ThemeProps> = ({theme}) => (
-    <div id='theme-background' className={theme}>
-        {linkFont(theme)}
+const GlobalBase: React.FC = props => {
+    const {currentTheme} = useContext(ThemeContext);
+    console.log('CURRENT THEME in GLOBAL BASE: ', currentTheme);
+
+    return (
+    <div id='theme-background' className={currentTheme.themeKey}>
+        {linkFont(currentTheme)}
         <Global styles={css`
-            * { margin: 0; padding: 0; box-sizing: border-box; overflow: scroll; text-decoration: none; }
+            * { margin: 0; padding: 0; box-sizing: border-box; overflow: auto; text-decoration: none; }
             html {
                 font-family: "Heebo";
                 font-size: 20px;
@@ -52,12 +40,12 @@ const GlobalBase: React.FC<ThemeProps> = ({theme}) => (
             h1, h2, h3, h4, h5, h6, div, header, footer, aside, article, li {
                 display: block;
             }
+            a { color: #333; }
             
             h1 {
                 font-size:3rem;
                 line-height: 1.6em;
                 letter-spacing: .01em;
-                text-shadow: 2px 2px 1px rgba(16,16,16,.6);
             }
             
             img {
@@ -78,14 +66,11 @@ const GlobalBase: React.FC<ThemeProps> = ({theme}) => (
                 opacity: .25;
                 pointer-events: none;
                 z-index: -1;
-                
-                &.${theme} {
-                    background-image: url('/images/${theme}/background.jpg');
-                }
+                background-image: url(${currentTheme.bgImg});
             }
           `}
         />
     </div>
-);
+)};
 
 export default GlobalBase;

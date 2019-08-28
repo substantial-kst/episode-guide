@@ -10,7 +10,7 @@ interface Props {
 }
 
 const Wrapper = styled.div`
-    width:30%;
+    width:20%;
     
     a {
         display: block;
