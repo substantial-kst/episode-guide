@@ -14,6 +14,7 @@ interface PageProps {
   match: {
     params: {
       programId: string;
+      season: number;
     };
   };
 }
@@ -49,7 +50,7 @@ const Page: React.FC<PageProps> = props => {
         />
       );
     } else if (!!getProgramId(props) && currentRoute.indexOf('browse') > -1) {
-      return <Browse programId={getProgramId(props)} location={props.location} match={props.match} />
+      return <Browse programId={getProgramId(props)} seasonNumber={props.match.params.season} />
     } else {
       return <LandingPage />;
     }
