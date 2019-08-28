@@ -31,11 +31,11 @@ const Search: React.FunctionComponent<Props> = props => {
   };
 
   return (
-    <div>
+    <SearchContext.Provider value={results}>
       <h2>Search Page</h2>
       <OmniboxSearch searchHandler={searchHandler} />
       <EpisodeList episodes={results} />
-    </div>
+    </SearchContext.Provider>
   );
 };
 
