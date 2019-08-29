@@ -1,11 +1,7 @@
 interface Episode {
   episode: number;
   id: string;
-  broadcast: {
-    year: string;
-    month: string;
-    date: string;
-  };
+  broadcast: BroadcastDate;
   title: string;
   summary: string;
   characters: string[];
@@ -14,4 +10,10 @@ interface Episode {
   image: string;
   poster: string;
   showCode: string;
+}
+
+interface BroadcastDate {
+  year: string;
+  month: string;
+  date: string;
 }
