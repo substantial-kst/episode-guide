@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import { queryFetch } from '../utils/fetch';
 import EpisodeIdentifier from '../components/EpisodeIdentifier';
 import EpisodeImage from '../components/EpisodeImage';
@@ -51,20 +51,20 @@ const Detail: React.FC<{ episode: Episode; id: string; programId: string }> = ({
   const guestStars = (e:Episode) => {
     if (e.guests && e.guests.length > 0) {
       return (
-          <Fragment>
+          <>
             <h2>Guest Starring:</h2>
             <ul>
             {e.guests.map((guest: string, i: number) => (
                 <li key={i}>{guest}</li>
             ))}
             </ul>
-          </Fragment>
+          </>
       )
     }
   };
 
   return (
-    <Fragment>
+    <>
       <h1>{e.title}</h1>
       <EpisodeImage imageUrl={e.image} />
       <BroadcastDate year={e.broadcast.year} month={e.broadcast.month} date={e.broadcast.date}/>
@@ -74,8 +74,7 @@ const Detail: React.FC<{ episode: Episode; id: string; programId: string }> = ({
         <span key={i}>{charcter}</span>
       ))}
       {guestStars(e)}
-
-    </Fragment>
+    </>
   );
 };
 

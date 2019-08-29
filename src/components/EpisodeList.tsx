@@ -12,7 +12,7 @@ const Wrapper = styled.div`
   width: 70%;
 `;
 
-const Episodes = (props:Props) => {
+const renderEpisodePreviews = (props:Props) => {
   if (props.episodes.length === 0) {
     return <LoadingIndicator />
   } else {
@@ -25,7 +25,7 @@ const Episodes = (props:Props) => {
 export default (props: Props) => {
   return (
     <Wrapper>
-      {Episodes(props)}
+      {renderEpisodePreviews(props)}
     </Wrapper>
   );
 };
