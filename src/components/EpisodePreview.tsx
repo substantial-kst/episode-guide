@@ -22,12 +22,16 @@ const Wrapper = styled.div`
   }
 `;
 
+export const getEpisodeRoute = (episode:Episode):string => {
+    return `/${episode.showCode}/${episode.id}`;
+};
+
 const EpisodePreview: React.FC<Props> = ({ episode }) => {
   return (
     <Wrapper>
       <Link
         to={{
-          pathname: `/${episode.showCode}/${episode.id}`,
+          pathname: getEpisodeRoute(episode),
           state: { episode }
         }}
       >
