@@ -57,8 +57,10 @@ https://3578rll5mf.execute-api.us-west-2.amazonaws.com/dev/query
                 * Tags
                 * Guest Stars
     --------------- ADVANCED SEARCH ------------------
+    id      - ID string (Exact match)
     e       - Episode index (Exact match)
     s       - Season (Exact match)
+    n       - Episode number (across seasons)
     t       - Title (Contains)
     d       - Description aka Summary (Contains)
     c       - Character (Array contains)

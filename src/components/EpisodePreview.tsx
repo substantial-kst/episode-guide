@@ -22,7 +22,7 @@ const Wrapper = styled.div`
   }
 `;
 
-export const getEpisodeRoute = (episode:Episode):string => {
+const getEpisodeRoute = (episode:Episode):string => {
     return `/${episode.showCode}/${episode.id}`;
 };
 
@@ -45,3 +45,7 @@ const EpisodePreview: React.FC<Props> = ({ episode }) => {
 };
 
 export default EpisodePreview;
+
+export const _testUtils = {
+    getEpisodeRoute
+};
