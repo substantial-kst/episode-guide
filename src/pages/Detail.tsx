@@ -3,9 +3,7 @@ import { queryFetch } from '../utils/fetch';
 import EpisodeIdentifier from '../components/EpisodeIdentifier';
 import EpisodeImage from '../components/EpisodeImage';
 import TextSummary from '../components/TextSummary';
-import styled from '@emotion/styled';
-import { months, getOrdinal, stringLeadingZeros } from "../utils/DateFormatter";
-import BroadcastDate from "../components/BroadcastDate";
+import BroadcastDate from '../components/BroadcastDate';
 
 const Detail: React.FC<{ episode: Episode; id: string; programId: string }> = ({
   episode,
@@ -48,18 +46,18 @@ const Detail: React.FC<{ episode: Episode; id: string; programId: string }> = ({
     }
   }, []);
 
-  const guestStars = (e:Episode) => {
+  const guestStars = (e: Episode) => {
     if (e.guests && e.guests.length > 0) {
       return (
-          <>
-            <h2>Guest Starring:</h2>
-            <ul>
+        <>
+          <h2>Guest Starring:</h2>
+          <ul>
             {e.guests.map((guest: string, i: number) => (
-                <li key={i}>{guest}</li>
+              <li key={i}>{guest}</li>
             ))}
-            </ul>
-          </>
-      )
+          </ul>
+        </>
+      );
     }
   };
 
@@ -67,7 +65,11 @@ const Detail: React.FC<{ episode: Episode; id: string; programId: string }> = ({
     <>
       <h1>{e.title}</h1>
       <EpisodeImage imageUrl={e.image} />
-      <BroadcastDate year={e.broadcast.year} month={e.broadcast.month} date={e.broadcast.date}/>
+      <BroadcastDate
+        year={e.broadcast.year}
+        month={e.broadcast.month}
+        date={e.broadcast.date}
+      />
       <EpisodeIdentifier idString={e.id} />
       <TextSummary summary={e.summary} />
       {e.characters.map((charcter: string, i: number) => (
