@@ -1,11 +1,11 @@
 import React, {useContext} from 'react';
-import Basic from '../layouts/Basic';
-import Header from '../components/Header';
-import Search from './Search';
-import LandingPage from './LandingPage';
-import Detail from './Detail';
-import Browse from "./Browse";
-import { ThemeContext, IThemeContext } from "../context/ThemeContext";
+import Basic from '../../layouts/Basic';
+import Header from '../../components/Header';
+import Search from '../Search/Search';
+import LandingPage from '../LandingPage/LandingPage';
+import Detail from '../Detail/Detail';
+import Browse from "../Browse/Browse";
+import { ThemeContext, IThemeContext } from "../../context/ThemeContext";
 
 interface PageProps {
   location: {

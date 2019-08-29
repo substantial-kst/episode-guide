@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "@emotion/styled";
-import ImageLink from "../components/ImageLink";
+import ImageLink from "../../components/ImageLink";
 
 interface ShowLink {
     showCode: string

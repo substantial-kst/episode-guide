@@ -27,8 +27,7 @@ const ordinal:Record<string, string> = {
 
 export const getOrdinal = (number:any) => {
     const stringifiedNumber = Number(number).toString();
-    const lastDigit = stringifiedNumber.substring(stringifiedNumber.length - 1)
-    console.log('Last digit: ', lastDigit);
+    const lastDigit = stringifiedNumber.substring(stringifiedNumber.length - 1);
     if (ordinal[lastDigit]) {
         return ordinal[lastDigit];
     } else {

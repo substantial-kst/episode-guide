@@ -25,7 +25,6 @@ const linkFont = (currentTheme:any) => {
 
 const GlobalBase: React.FC = props => {
     const {currentTheme} = useContext(ThemeContext);
-    console.log('CURRENT THEME in GLOBAL BASE: ', currentTheme);
 
     return (
     <div id='theme-background' className={currentTheme.themeKey}>
