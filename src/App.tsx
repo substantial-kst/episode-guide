@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { ThemeContext, IThemeContext, themes, setTheme } from './context/ThemeContext'
-import Page from './pages/Page';
+import Page from './pages/Page/Page';
 import './App.css';
 
 const App: React.FC = props => {

@@ -16,6 +16,11 @@ export const queryMap: Record<string, string> = {
   unionType: 'u'
 };
 
+export interface EpisodeQueryParams {
+  programId: string;
+  id: string;
+}
+
 export const seasonMap: Record<string, string> = {
   programId: 'p'
 };
