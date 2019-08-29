@@ -1,10 +1,11 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import Basic from '../layouts/Basic';
 import Header from '../components/Header';
 import Search from './Search';
 import LandingPage from './LandingPage';
 import Detail from './Detail';
 import Browse from "./Browse";
+import { ThemeContext, IThemeContext } from "../context/ThemeContext";
 
 interface PageProps {
   location: {
@@ -19,7 +20,16 @@ interface PageProps {
   };
 }
 
+const singleEpisodeRegex = /s[0-9]{2}e[0-9]{2}$/;
+
 const Page: React.FC<PageProps> = props => {
+  const Theme:IThemeContext = useContext(ThemeContext);
+
+  const getProgramId = (props: PageProps) => {
+    return props.match.params.programId;
+  };
+
+  Theme.setTheme(getProgramId(props));
   const getEpisodeFromState = (props: PageProps): any => {
     if (props !== undefined) {
       if (props.location !== undefined) {
@@ -32,12 +42,9 @@ const Page: React.FC<PageProps> = props => {
   };
 
   const getPageComponent = (props: PageProps) => {
-    console.log('Page props: ', props);
-
     const currentRoute: string = props.location.pathname;
     const episode = getEpisodeFromState(props);
-    const singleEpisodeRoute = /s[0-9]{2}e[0-9]{2}$/;
-    const episodeRouteIdIndex = currentRoute.search(singleEpisodeRoute);
+    const episodeRouteIdIndex = currentRoute.search(singleEpisodeRegex);
 
     if (currentRoute.indexOf('search') > -1) {
       return <Search programId={getProgramId(props)} />;
@@ -50,29 +57,26 @@ const Page: React.FC<PageProps> = props => {
         />
       );
     } else if (!!getProgramId(props) && currentRoute.indexOf('browse') > -1) {
-      return <Browse programId={getProgramId(props)} seasonNumber={props.match.params.season} />
+      return <Browse programId={getProgramId(props)} seasonNumber={props.match.params.season || 1} />
     } else {
       return <LandingPage />;
     }
   };
 
-  const getProgramId = (props: PageProps) => {
-    return props.match.params.programId;
-  };
-
   const shouldShowHeader = (props:PageProps) => {
-    if (props !== undefined) {
-      if (props.location !== undefined) {
-        if (props.location.pathname !== undefined) {
-          return !(props.location.pathname === '/');
-        }
-      }
-    }
-    return true;
+    const location = props.location;
+    const pathname = location && location.pathname;
+    const regex = new RegExp(/browse|search/);
+    const match = pathname.match(regex) || pathname.match(singleEpisodeRegex) || '';
+    return Boolean(getProgramId(props)
+        && location
+        && pathname
+        && match.length > 0
+    );
   }
 
   return (
-    <Basic theme={getProgramId(props)}>
+    <Basic data-theme-key={getProgramId(props)}>
       <Header show={shouldShowHeader(props)}/>
       {getPageComponent(props)}
     </Basic>
