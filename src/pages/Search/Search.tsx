@@ -1,7 +1,7 @@
 import React, { useState, useContext, StatelessComponent } from 'react';
-import { queryFetch } from '../utils/fetch';
-import EpisodeList from '../components/EpisodeList';
-import OmniboxSearch from '../components/OmniboxSearch';
+import { queryFetch } from '../../utils/fetch';
+import EpisodeList from '../../components/EpisodeList';
+import OmniboxSearch from '../../components/OmniboxSearch';
 
 type Props = {
   programId: string;
