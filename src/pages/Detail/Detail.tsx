@@ -8,7 +8,7 @@ import GuestStars from "../../components/GuestStars/GuestStars";
 import LoadingIndicator from "../../components/LoadingIndicator";
 
 interface Props {
-  episode: Episode;
+  episode: Episode|null;
   id: string;
   programId: string;
 }
