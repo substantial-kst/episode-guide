@@ -1,24 +1,24 @@
-import React from "react";
+import React from 'react';
 
 export interface Props {
-    guests: string[];
+  guests: string[];
 }
 
-const GuestStars:React.FC<Props> = ({ guests }) => {
-    if (!(guests && guests.length > 0)) {
-        return <></>
-    } else {
-        return (
-            <>
-                <h2>Guest Starring:</h2>
-                <ul>
-                    {guests.map((guest: string, i: number) => (
-                        <li key={i}>{guest}</li>
-                    ))}
-                </ul>
-            </>
-        )
-    }
+const GuestStars: React.FC<Props> = ({ guests }) => {
+  if (!(guests && guests.length > 0)) {
+    return <></>;
+  } else {
+    return (
+      <>
+        <h2>Guest Starring:</h2>
+        <ul>
+          {guests.map((guest: string, i: number) => (
+            <li key={i}>{guest}</li>
+          ))}
+        </ul>
+      </>
+    );
+  }
 };
 
-export default GuestStars
+export default GuestStars;

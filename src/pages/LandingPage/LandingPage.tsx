@@ -1,34 +1,34 @@
-import React from "react";
-import styled from "@emotion/styled";
-import ImageLink from "../../components/ImageLink";
+import React from 'react';
+import styled from '@emotion/styled';
+import ImageLink from '../../components/ImageLink';
 
 interface ShowLink {
-    showCode: string
-    title: string
+  showCode: string;
+  title: string;
 }
 
 const Wrapper = styled.div`
-    position: fixed;
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: space-around;
-    align-items: center;
-    height: 100%;
-    top: 0;
-    left: 10%;
-    width: 80%;
-    text-align: center;
-`
+  position: fixed;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  align-items: center;
+  height: 100%;
+  top: 0;
+  left: 10%;
+  width: 80%;
+  text-align: center;
+`;
 
 const showMapping: ShowLink[] = [
-    {
-        showCode: 'koth',
-        title: 'King of the Hill'
-    },
-    {
-        showCode: 'bburg',
-        title: 'Bob\'s Burgers'
+  {
+    showCode: 'koth',
+    title: 'King of the Hill',
+  },
+  {
+    showCode: 'bburg',
+    title: "Bob's Burgers",
     // },
     // {
     //     showCode: 'gg',
@@ -45,13 +45,19 @@ const showMapping: ShowLink[] = [
     // {
     //     showCode: 'fra',
     //     title: 'Frasier'
-    }
+  },
 ];
 
 const LandingPage: React.FC = props => (
-    <Wrapper>
-        {showMapping.map(show => (<ImageLink showCode={show.showCode} title={show.title} key={show.showCode}/>))}
-    </Wrapper>
+  <Wrapper>
+    {showMapping.map(show => (
+      <ImageLink
+        showCode={show.showCode}
+        title={show.title}
+        key={show.showCode}
+      />
+    ))}
+  </Wrapper>
 );
 
 export default LandingPage;

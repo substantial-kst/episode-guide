@@ -22,8 +22,8 @@ const Wrapper = styled.div`
   }
 `;
 
-const getEpisodeRoute = (episode:Episode):string => {
-    return `/${episode.showCode}/${episode.id}`;
+const getEpisodeRoute = (episode: Episode): string => {
+  return `/${episode.showCode}/${episode.id}`;
 };
 
 const EpisodePreview: React.FC<Props> = ({ episode }) => {
@@ -32,7 +32,7 @@ const EpisodePreview: React.FC<Props> = ({ episode }) => {
       <Link
         to={{
           pathname: getEpisodeRoute(episode),
-          state: { episode }
+          state: { episode },
         }}
       >
         <EpisodeImage imageUrl={episode.image} size={'thumbnail'} />
@@ -47,5 +47,5 @@ const EpisodePreview: React.FC<Props> = ({ episode }) => {
 export default EpisodePreview;
 
 export const _testUtils = {
-    getEpisodeRoute
+  getEpisodeRoute,
 };
