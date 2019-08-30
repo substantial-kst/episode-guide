@@ -20,7 +20,7 @@ const Search: React.FunctionComponent<Props> = props => {
 
     const q: searchQuery = {
       programId: props.programId,
-      query: query
+      query: query,
     };
 
     queryFetch(q).then(episodes => setResult(episodes));

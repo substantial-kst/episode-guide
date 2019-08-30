@@ -13,7 +13,7 @@ export const queryMap: Record<string, string> = {
   date: 'dd',
   month: 'mm',
   year: 'yy',
-  unionType: 'u'
+  unionType: 'u',
 };
 
 export interface EpisodeQueryParams {
@@ -22,7 +22,7 @@ export interface EpisodeQueryParams {
 }
 
 export const seasonMap: Record<string, string> = {
-  programId: 'p'
+  programId: 'p',
 };
 
 const parseQueryParams = (baseUrl: string, queryParams: any, queryMap: any) => {
@@ -30,7 +30,9 @@ const parseQueryParams = (baseUrl: string, queryParams: any, queryMap: any) => {
   let paramsParsed = 0;
 
   Object.keys(queryParams).forEach((key: string) => {
-    parsedUrl += `${paramsParsed > 0 ? '&' : ''}${queryMap[key]}=${queryParams[key]}`;
+    parsedUrl += `${paramsParsed > 0 ? '&' : ''}${queryMap[key]}=${
+      queryParams[key]
+    }`;
     paramsParsed++;
   });
 
@@ -43,12 +45,12 @@ export const fetchSeasons = (seasonProps: any) => {
   const url = parseQueryParams(baseUrl, seasonProps, seasonMap);
 
   return fetch(url, {
-    method: 'GET'
+    method: 'GET',
   })
-      .then(response => response.json())
-      .then(jsonData => {
-        return jsonData.seasons;
-      });
+    .then(response => response.json())
+    .then(jsonData => {
+      return jsonData.seasons;
+    });
 };
 
 export const queryFetch = (queryProps: any) => {
@@ -57,7 +59,7 @@ export const queryFetch = (queryProps: any) => {
   const url = parseQueryParams(baseUrl, queryProps, queryMap);
 
   return fetch(url, {
-    method: 'GET'
+    method: 'GET',
   })
     .then(response => response.json())
     .then(jsonData => {
