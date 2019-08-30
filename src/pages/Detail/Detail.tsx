@@ -23,12 +23,8 @@ const Wrapper = styled.div`
 const Detail: React.FC<Props> = ({ episode, id, programId }) => {
   const [e, setEpisode] = React.useState<Episode | null>(null)
 
-  React.useEffect((): void => {
-    fetchEpisode()
-  }, [])
-
-  const fetchEpisode = () => {
-    if (episode === null) {
+  const fetchEpisode = (providedEpisode: Episode | null) => {
+    if (providedEpisode === null) {
       let query: EpisodeQueryParams = {
         programId: programId,
         id: id,
@@ -36,9 +32,13 @@ const Detail: React.FC<Props> = ({ episode, id, programId }) => {
 
       queryFetch(query).then(episodeJSON => setEpisode(episodeJSON[0]))
     } else {
-      setEpisode(episode)
+      setEpisode(providedEpisode)
     }
   }
+
+  React.useEffect((): void => {
+    fetchEpisode(episode)
+  }, [episode])
 
   const renderDisplay = (): JSX.Element => {
     if (e === null) {

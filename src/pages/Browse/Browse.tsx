@@ -1,5 +1,5 @@
-import React, {useEffect, useState} from 'react'
-import {queryFetch, fetchSeasons} from '../../utils/fetch'
+import React, { useEffect, useState } from 'react'
+import { queryFetch, fetchSeasons } from '../../utils/fetch'
 import SeasonList from '../../components/SeasonList'
 import EpisodeList from '../../components/EpisodeList'
 import styled from '@emotion/styled'
@@ -42,12 +42,12 @@ const Browse: React.FunctionComponent<Props> = props => {
   }
 
   const loadEpisodes = (season: number): void => {
-    interface seasonQuery {
+    interface SeasonQuery {
       programId: string
       season: number
     }
 
-    const q: seasonQuery = {
+    const q: SeasonQuery = {
       programId: props.programId,
       season,
     }

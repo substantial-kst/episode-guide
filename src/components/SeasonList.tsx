@@ -1,12 +1,12 @@
-import React, {useState} from 'react'
-import {Link} from 'react-router-dom'
+import React, { ReactElement } from 'react'
+import { Link } from 'react-router-dom'
 import styled from '@emotion/styled'
 import LoadingIndicator from './LoadingIndicator'
 
 interface Props {
-    programId: any
-    selectedSeasonNumber: number
-    seasons: Season[]
+  programId: string
+  selectedSeasonNumber: number
+  seasons: Season[]
 }
 
 const Wrapper = styled.div`
@@ -33,12 +33,12 @@ const Wrapper = styled.div`
   }
 `
 
-const initialData = {programId: '', seasons: [], selectedSeasonNumber: 0}
+const initialData = { programId: '', seasons: [], selectedSeasonNumber: 0 }
 
 const SeasonList: React.FC<Props> = props => {
-  const seasonPreview = () => {
+  const seasonPreview = (): ReactElement | ReactElement[] => {
     if (props.seasons.length === 0) {
-        return <LoadingIndicator/>
+      return <LoadingIndicator />
     } else {
       return props.seasons.map((season: Season, idx: number) => (
         <Link
@@ -53,7 +53,7 @@ const SeasonList: React.FC<Props> = props => {
     }
   }
 
-    return <Wrapper>{seasonPreview()}</Wrapper>
+  return <Wrapper>{seasonPreview()}</Wrapper>
 }
 
 export default SeasonList
