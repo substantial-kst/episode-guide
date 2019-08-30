@@ -47,18 +47,7 @@ const getPageComponent = (props: RouteChildrenProps) => {
     return <LandingPage />;
   }
 };
-      );
-    } else if (!!getProgramId(props) && currentRoute.indexOf('browse') > -1) {
-      return (
-        <Browse
-          programId={getProgramId(props)}
-          seasonNumber={props.match.params.season || 1}
-        />
-      );
-    } else {
-      return <LandingPage />;
-    }
-  };
+
 
 const getEpisodeFromState = (props: RouteChildrenProps):Episode|null => {
   if (props !== undefined) {

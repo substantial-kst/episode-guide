@@ -29,13 +29,13 @@ const renderBrowse = (themeKey: string) => {
 const renderHeader = (shouldShow: boolean, themeKey: string) => {
   if (shouldShow) {
     return (
-      <Fragment>
+        <Wrapper>
         <Link to="/">
           <FontAwesomeIcon icon={faArrowLeft} /> Home
         </Link>
         {renderBrowse(themeKey)}
         <NavLink to={`/${themeKey}/search`}>Search</NavLink>
-      </Fragment>
+        </Wrapper>
     );
   } else {
     return <div></div>;

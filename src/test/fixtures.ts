@@ -11,7 +11,7 @@ export const buildGuests = () => ['some-guest'];
 
 export const buildTags = () => ['some-tag'];
 
-export const buildEpisode = (overrides: Partial<Episode> = {}): Episode => ({
+export const buildEpisode = (overrides: Partial<Episode> = {}): Episode => <Episode>({
   episode: 1,
   id: 'S01E01',
   broadcast: buildBroadcastDate(),

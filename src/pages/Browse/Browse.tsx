@@ -18,7 +18,6 @@ const Wrapper = styled.div`
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  padding: 20px 0;
 
   h2 {
     width: 100%;
