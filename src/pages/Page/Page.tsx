@@ -1,13 +1,12 @@
-import React, {useContext} from 'react';
+import React, { useContext } from 'react';
 import Basic from '../../layouts/Basic';
 import Header from '../../components/Header';
 import Search from '../Search/Search';
 import LandingPage from '../LandingPage/LandingPage';
 import Detail from '../Detail/Detail';
-import Browse from "../Browse/Browse";
-import { ThemeContext, IThemeContext } from "../../context/ThemeContext";
-import {RouteChildrenProps} from "react-router";
-
+import Browse from '../Browse/Browse';
+import { ThemeContext, IThemeContext } from '../../context/ThemeContext';
+import { RouteChildrenProps } from 'react-router';
 
 const singleEpisodeRegex = /s[0-9]{2}e[0-9]{2}$/;
 
@@ -48,6 +47,18 @@ const getPageComponent = (props: RouteChildrenProps) => {
     return <LandingPage />;
   }
 };
+      );
+    } else if (!!getProgramId(props) && currentRoute.indexOf('browse') > -1) {
+      return (
+        <Browse
+          programId={getProgramId(props)}
+          seasonNumber={props.match.params.season || 1}
+        />
+      );
+    } else {
+      return <LandingPage />;
+    }
+  };
 
 const getEpisodeFromState = (props: RouteChildrenProps):Episode|null => {
   if (props !== undefined) {
@@ -66,7 +77,7 @@ const Page: React.FC<RouteChildrenProps> = props => {
   Theme.setTheme(getProgramId(props));
   return (
     <Basic data-theme-key={getProgramId(props)}>
-      <Header show={shouldShowHeader(props)}/>
+      <Header show={shouldShowHeader(props)} />
       {getPageComponent(props)}
     </Basic>
   );
