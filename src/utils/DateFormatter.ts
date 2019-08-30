@@ -27,31 +27,31 @@ export const months: Record<string, string[]> = {
     'November',
     'December',
   ],
-};
+}
 
 const ordinal: Record<string, string> = {
   default: 'th',
   '1': 'st',
   '2': 'nd',
   '3': 'rd',
-};
+}
 
 export const getOrdinal = (number: any) => {
-  const stringifiedNumber = Number(number).toString();
-  const lastDigit = stringifiedNumber.substring(stringifiedNumber.length - 1);
+    const stringifiedNumber = Number(number).toString()
+    const lastDigit = stringifiedNumber.substring(stringifiedNumber.length - 1)
   if (ordinal[lastDigit]) {
-    return ordinal[lastDigit];
+      return ordinal[lastDigit]
   } else {
-    return ordinal.default;
+      return ordinal.default
   }
-};
+}
 
 export const stringLeadingZeros = (number: any) => {
-  const stringifiedNumber = Number(number).toString();
-  const firstDigit = stringifiedNumber.substring(0, 1);
+    const stringifiedNumber = Number(number).toString()
+    const firstDigit = stringifiedNumber.substring(0, 1)
   if (firstDigit === '0') {
-    return stringifiedNumber.substring(1);
+      return stringifiedNumber.substring(1)
   } else {
-    return stringifiedNumber;
+      return stringifiedNumber
   }
-};
+}

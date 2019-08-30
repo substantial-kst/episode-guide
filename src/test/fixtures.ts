@@ -3,13 +3,13 @@ export const buildBroadcastDate = (overrides: Partial<BroadcastDate> = {}) => ({
   month: '08',
   date: '30',
   ...overrides,
-});
+})
 
-export const buildCharacters = () => ['some-character'];
+export const buildCharacters = () => ['some-character']
 
-export const buildGuests = () => ['some-guest'];
+export const buildGuests = () => ['some-guest']
 
-export const buildTags = () => ['some-tag'];
+export const buildTags = () => ['some-tag']
 
 export const buildEpisode = (overrides: Partial<Episode> = {}): Episode => <Episode>({
   episode: 1,
@@ -24,4 +24,4 @@ export const buildEpisode = (overrides: Partial<Episode> = {}): Episode => <Epis
   poster: 'some-poster',
   showCode: 'some-code',
   ...overrides,
-});
+})

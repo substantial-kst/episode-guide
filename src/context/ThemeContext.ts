@@ -1,16 +1,16 @@
-import React from 'react';
+import React from 'react'
 
 export interface ThemeObj {
-  themeKey: string;
-  color: string;
-  linkImg: string;
-  bgImg: string;
-  font: string;
+    themeKey: string
+    color: string
+    linkImg: string
+    bgImg: string
+    font: string
 }
 
 export interface IThemeContext {
-  currentTheme: ThemeObj;
-  setTheme: Function;
+    currentTheme: ThemeObj
+    setTheme: Function
 }
 
 export const themes: Record<string, ThemeObj> = {
@@ -35,20 +35,20 @@ export const themes: Record<string, ThemeObj> = {
     font: 'Secular+One',
     linkImg: '/images/bburg/link.jpg',
   },
-};
+}
 
-let currentTheme: ThemeObj = themes.koth;
+let currentTheme: ThemeObj = themes.koth
 
 export const setTheme = (themeKey: string) => {
   if (themes.hasOwnProperty(themeKey)) {
-    currentTheme = themes[themeKey];
+      currentTheme = themes[themeKey]
   } else {
-    currentTheme = themes.default;
+      currentTheme = themes.default
   }
-  return currentTheme;
-};
+    return currentTheme
+}
 
 export const ThemeContext = React.createContext({
   currentTheme,
   setTheme,
-});
+})

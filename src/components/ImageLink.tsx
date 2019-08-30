@@ -1,10 +1,10 @@
-import React from 'react';
-import styled from '@emotion/styled';
-import { Link } from 'react-router-dom';
+import React from 'react'
+import styled from '@emotion/styled'
+import { Link } from 'react-router-dom'
 
 interface ComponentProps {
-  showCode: string;
-  title: string;
+  showCode: string
+  title: string
 }
 
 const Wrapper = styled.div`
@@ -16,7 +16,7 @@ const Wrapper = styled.div`
     padding: 5px;
     margin-bottom: 10px;
   }
-`;
+`
 
 const ImageLink: React.FC<ComponentProps> = ({ showCode, title }) => (
   <Wrapper>
@@ -25,6 +25,6 @@ const ImageLink: React.FC<ComponentProps> = ({ showCode, title }) => (
       <h3>{title}</h3>
     </Link>
   </Wrapper>
-);
+)
 
-export default ImageLink;
+export default ImageLink

@@ -1,30 +1,30 @@
-import React, { useState, useContext, StatelessComponent } from 'react';
-import { queryFetch } from '../../utils/fetch';
-import EpisodeList from '../../components/EpisodeList';
-import OmniboxSearch from '../../components/OmniboxSearch';
+import React, { useState, useContext, StatelessComponent } from 'react'
+import { queryFetch } from '../../utils/fetch'
+import EpisodeList from '../../components/EpisodeList'
+import OmniboxSearch from '../../components/OmniboxSearch'
 
 type Props = {
-  programId: string;
-};
+  programId: string
+}
 
 const Search: React.FunctionComponent<Props> = props => {
-  const initialState: Episode[] = [];
+  const initialState: Episode[] = []
 
-  const [results, setResult] = useState(initialState);
+  const [results, setResult] = useState(initialState)
 
   const searchHandler = (query: string): void => {
     interface searchQuery {
-      programId: string;
-      query: string;
+      programId: string
+      query: string
     }
 
     const q: searchQuery = {
       programId: props.programId,
       query: query,
-    };
+    }
 
-    queryFetch(q).then(episodes => setResult(episodes));
-  };
+    queryFetch(q).then(episodes => setResult(episodes))
+  }
 
   return (
     <div>
@@ -32,7 +32,7 @@ const Search: React.FunctionComponent<Props> = props => {
       <OmniboxSearch searchHandler={searchHandler} />
       <EpisodeList episodes={results} />
     </div>
-  );
-};
+  )
+}
 
-export default Search;
+export default Search

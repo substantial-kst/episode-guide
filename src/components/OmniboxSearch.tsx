@@ -1,22 +1,22 @@
-import React, { useState } from 'react';
+import React, {useState} from 'react'
 
 interface ComponentProps {
-  searchHandler: any;
+    searchHandler: any
 }
 
 const OmniboxSearch: React.FC<ComponentProps> = ({ searchHandler }) => {
-  const [query, setQuery] = useState<string>('');
+    const [query, setQuery] = useState<string>('')
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
-    e.preventDefault();
-    let inputValue: string = e.target.value;
-    setQuery(inputValue);
-  };
+      e.preventDefault()
+      let inputValue: string = e.target.value
+      setQuery(inputValue)
+  }
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>): void => {
-    e.preventDefault();
-    searchHandler(query);
-  };
+      e.preventDefault()
+      searchHandler(query)
+  }
 
   return (
     <form onSubmit={handleSubmit}>
@@ -27,7 +27,7 @@ const OmniboxSearch: React.FC<ComponentProps> = ({ searchHandler }) => {
         onChange={e => handleInputChange(e)}
       />
     </form>
-  );
-};
+  )
+}
 
-export default OmniboxSearch;
+export default OmniboxSearch

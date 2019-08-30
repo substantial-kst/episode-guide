@@ -1,51 +1,51 @@
-import React from 'react';
-import { queryFetch, EpisodeQueryParams } from '../../utils/fetch';
-import EpisodeIdentifier from '../../components/EpisodeIdentifier';
-import EpisodeImage from '../../components/EpisodeImage';
-import TextSummary from '../../components/TextSummary';
-import BroadcastDate from '../../components/BroadcastDate';
-import GuestStars from '../../components/GuestStars/GuestStars';
-import LoadingIndicator from '../../components/LoadingIndicator';
-import styled from "@emotion/styled";
+import React from 'react'
+import { queryFetch, EpisodeQueryParams } from '../../utils/fetch'
+import EpisodeIdentifier from '../../components/EpisodeIdentifier'
+import EpisodeImage from '../../components/EpisodeImage'
+import TextSummary from '../../components/TextSummary'
+import BroadcastDate from '../../components/BroadcastDate'
+import GuestStars from '../../components/GuestStars/GuestStars'
+import LoadingIndicator from '../../components/LoadingIndicator'
+import styled from '@emotion/styled'
 
 interface Props {
-  episode: Episode|null;
-  id: string;
-  programId: string;
+  episode: Episode | null
+  id: string
+  programId: string
 }
 
 const Wrapper = styled.div`
-    h1 {
-        margin-top:0;
-    }
-`;
+  h1 {
+    margin-top: 0;
+  }
+`
 
 const Detail: React.FC<Props> = ({ episode, id, programId }) => {
-  const [e, setEpisode] = React.useState<Episode | null>(null);
+  const [e, setEpisode] = React.useState<Episode | null>(null)
 
   React.useEffect((): void => {
-    fetchEpisode();
-  }, []);
+    fetchEpisode()
+  }, [])
 
   const fetchEpisode = () => {
     if (episode === null) {
       let query: EpisodeQueryParams = {
         programId: programId,
         id: id,
-      };
+      }
 
-      queryFetch(query).then(episodeJSON => setEpisode(episodeJSON[0]));
+      queryFetch(query).then(episodeJSON => setEpisode(episodeJSON[0]))
     } else {
-      setEpisode(episode);
+      setEpisode(episode)
     }
-  };
+  }
 
   const renderDisplay = (): JSX.Element => {
     if (e === null) {
-      return <LoadingIndicator />;
+      return <LoadingIndicator />
     } else {
       return (
-          <Wrapper>
+        <Wrapper>
           <h1>{e.title}</h1>
           <EpisodeImage imageUrl={e.image} />
           <BroadcastDate
@@ -59,12 +59,12 @@ const Detail: React.FC<Props> = ({ episode, id, programId }) => {
             <span key={i}>{character}</span>
           ))}
           <GuestStars guests={e.guests} />
-          </Wrapper>
-      );
+        </Wrapper>
+      )
     }
-  };
+  }
 
-  return renderDisplay();
-};
+  return renderDisplay()
+}
 
-export default Detail;
+export default Detail

@@ -1,22 +1,22 @@
-import React, { useState } from 'react';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import React, { useState } from 'react'
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import {
   ThemeContext,
   IThemeContext,
   themes,
   setTheme,
-} from './context/ThemeContext';
-import Page from './pages/Page/Page';
-import './App.css';
+} from './context/ThemeContext'
+import Page from './pages/Page/Page'
+import './App.css'
 
 const App: React.FC = props => {
   const [state, setState] = useState({
     currentTheme: themes.koth,
     setTheme: function(themeKey: string) {
-      state.currentTheme = setTheme(themeKey);
-      return state.currentTheme;
+      state.currentTheme = setTheme(themeKey)
+      return state.currentTheme
     },
-  });
+  })
 
   return (
     <ThemeContext.Provider value={state}>
@@ -30,7 +30,7 @@ const App: React.FC = props => {
         </Switch>
       </Router>
     </ThemeContext.Provider>
-  );
-};
+  )
+}
 
-export default App;
+export default App

@@ -1,9 +1,9 @@
-import React from 'react';
-import styled from '@emotion/styled';
+import React from 'react'
+import styled from '@emotion/styled'
 
 interface Props {
-  imageUrl: string;
-  size?: string;
+  imageUrl: string
+  size?: string
 }
 
 const Wrapper = styled.div<Props>`
@@ -31,7 +31,7 @@ const Wrapper = styled.div<Props>`
   img {
     display: none;
   }
-`;
+`
 
 const EpisodeImage: React.FC<Props> = ({ size, imageUrl }) => {
   return (
@@ -40,7 +40,7 @@ const EpisodeImage: React.FC<Props> = ({ size, imageUrl }) => {
         <img alt="Episode Screencap" src={imageUrl} />
       </div>
     </Wrapper>
-  );
-};
+  )
+}
 
-export default EpisodeImage;
+export default EpisodeImage

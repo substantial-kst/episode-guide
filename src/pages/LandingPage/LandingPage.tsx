@@ -1,10 +1,10 @@
-import React from 'react';
-import styled from '@emotion/styled';
-import ImageLink from '../../components/ImageLink';
+import React from 'react'
+import styled from '@emotion/styled'
+import ImageLink from '../../components/ImageLink'
 
 interface ShowLink {
-  showCode: string;
-  title: string;
+  showCode: string
+  title: string
 }
 
 const Wrapper = styled.div`
@@ -19,7 +19,7 @@ const Wrapper = styled.div`
   left: 10%;
   width: 80%;
   text-align: center;
-`;
+`
 
 const showMapping: ShowLink[] = [
   {
@@ -46,7 +46,7 @@ const showMapping: ShowLink[] = [
     //     showCode: 'fra',
     //     title: 'Frasier'
   },
-];
+]
 
 const LandingPage: React.FC = props => (
   <Wrapper>
@@ -58,6 +58,6 @@ const LandingPage: React.FC = props => (
       />
     ))}
   </Wrapper>
-);
+)
 
-export default LandingPage;
+export default LandingPage

@@ -1,5 +1,5 @@
-import React from 'react';
-import { getOrdinal, months, stringLeadingZeros } from '../utils/DateFormatter';
+import React from 'react'
+import { getOrdinal, months, stringLeadingZeros } from '../utils/DateFormatter'
 
 const BroadcastDate: React.FC<BroadcastDate> = broadcastDate => (
   <p>
@@ -11,6 +11,6 @@ const BroadcastDate: React.FC<BroadcastDate> = broadcastDate => (
     </span>
     <span>{broadcastDate.year}</span>
   </p>
-);
+)
 
-export default BroadcastDate;
+export default BroadcastDate
