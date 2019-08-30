@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from '@emotion/styled';
 
-interface Props {
+export interface Props {
   imageUrl: string;
   size?: string;
 }

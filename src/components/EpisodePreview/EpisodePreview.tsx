@@ -1,11 +1,11 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import EpisodeIdentifier from './EpisodeIdentifier';
-import EpisodeImage from './EpisodeImage';
-import TextSummary from './TextSummary';
+import EpisodeIdentifier from '../EpisodeIdentifier';
+import EpisodeImage from '../EpisodeImage';
+import TextSummary from '../TextSummary';
 import styled from '@emotion/styled';
 
-interface Props {
+export interface Props {
   episode: Episode;
 }
 
@@ -22,8 +22,8 @@ const Wrapper = styled.div`
   }
 `;
 
-const getEpisodeRoute = (episode:Episode):string => {
-    return `/${episode.showCode}/${episode.id}`;
+const getEpisodeRoute = (episode: Episode): string => {
+  return `/${episode.showCode}/${episode.id}`;
 };
 
 const EpisodePreview: React.FC<Props> = ({ episode }) => {
@@ -47,5 +47,5 @@ const EpisodePreview: React.FC<Props> = ({ episode }) => {
 export default EpisodePreview;
 
 export const _testUtils = {
-    getEpisodeRoute
+  getEpisodeRoute
 };
