@@ -6,12 +6,19 @@ import TextSummary from '../../components/TextSummary';
 import BroadcastDate from '../../components/BroadcastDate';
 import GuestStars from '../../components/GuestStars/GuestStars';
 import LoadingIndicator from '../../components/LoadingIndicator';
+import styled from "@emotion/styled";
 
 interface Props {
-  episode: Episode;
+  episode: Episode|null;
   id: string;
   programId: string;
 }
+
+const Wrapper = styled.div`
+    h1 {
+        margin-top:0;
+    }
+`;
 
 const Detail: React.FC<Props> = ({ episode, id, programId }) => {
   const [e, setEpisode] = React.useState<Episode | null>(null);
@@ -38,7 +45,7 @@ const Detail: React.FC<Props> = ({ episode, id, programId }) => {
       return <LoadingIndicator />;
     } else {
       return (
-        <>
+          <Wrapper>
           <h1>{e.title}</h1>
           <EpisodeImage imageUrl={e.image} />
           <BroadcastDate
@@ -52,7 +59,7 @@ const Detail: React.FC<Props> = ({ episode, id, programId }) => {
             <span key={i}>{character}</span>
           ))}
           <GuestStars guests={e.guests} />
-        </>
+          </Wrapper>
       );
     }
   };

@@ -1,5 +1,6 @@
 interface Episode {
   episode: number;
+  season: number;
   id: string;
   broadcast: BroadcastDate;
   title: string;
