@@ -2,7 +2,7 @@ import React from 'react';
 import { render, RenderResult } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import '@testing-library/jest-dom/extend-expect';
-import GuestStars, { Props } from './GuestStars';
+import GuestStars, { Props } from './EpisodePreview';
 
 const renderTestComponent = (
   Component: React.FC<Props>,
