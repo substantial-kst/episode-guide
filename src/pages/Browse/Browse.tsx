@@ -3,10 +3,11 @@ import { queryFetch, fetchSeasons } from '../../utils/fetch'
 import SeasonList from '../../components/SeasonList'
 import EpisodeList from '../../components/EpisodeList'
 import styled from '@emotion/styled'
+import { RouteComponentProps } from 'react-router'
 
 interface Props {
   programId: string
-  seasonNumber: number
+  season: string
 }
 
 interface BrowseState {
@@ -25,8 +26,10 @@ const Wrapper = styled.div`
   }
 `
 
-const Browse: React.FunctionComponent<Props> = props => {
-  let initialState: BrowseState = {
+const Browse: React.FC<RouteComponentProps<Props>> = props => {
+  console.log('PROPS: ', props)
+  const { programId, season } = props.match.params
+  const initialState: BrowseState = {
     episodes: [],
     seasons: [],
   }
@@ -34,22 +37,22 @@ const Browse: React.FunctionComponent<Props> = props => {
   const [episodes, setEpisodes] = useState(initialState.episodes)
 
   const loadSeasons = (): void => {
-    if (props.programId) {
-      fetchSeasons({ programId: props.programId }).then(apiResults => {
+    if (programId) {
+      fetchSeasons({ programId: programId }).then(apiResults => {
         setSeasons(apiResults)
       })
     }
   }
 
-  const loadEpisodes = (season: number): void => {
+  const loadEpisodes = (seasonNumber: string): void => {
     interface SeasonQuery {
       programId: string
       season: number
     }
 
     const q: SeasonQuery = {
-      programId: props.programId,
-      season,
+      programId: programId,
+      season: parseInt(seasonNumber),
     }
 
     queryFetch(q).then(apiResults => {
@@ -59,18 +62,18 @@ const Browse: React.FunctionComponent<Props> = props => {
 
   useEffect(() => {
     loadSeasons()
-  }, [props.programId])
+  }, [programId])
   useEffect(() => {
-    loadEpisodes(props.seasonNumber)
-  }, [props.seasonNumber])
+    loadEpisodes(season)
+  }, [season])
 
   return (
     <Wrapper>
-      <h2>Browse Season {props.seasonNumber} Episodes</h2>
+      <h2>Browse Season {season} Episodes</h2>
       <SeasonList
-        selectedSeasonNumber={props.seasonNumber}
+        selectedSeasonNumber={parseInt(season)}
         seasons={seasons}
-        programId={props.programId}
+        programId={programId}
       />
       <EpisodeList episodes={episodes} />
     </Wrapper>

@@ -6,8 +6,11 @@ import {
   themes,
   setTheme,
 } from './context/ThemeContext'
-import Page from './pages/Page/Page'
 import './App.css'
+import LandingPage from './pages/LandingPage/LandingPage'
+import Browse from './pages/Browse/Browse'
+import Search from './pages/Search/Search'
+import Detail from './pages/Detail/Detail'
 
 const App: React.FC = props => {
   const [state, setState] = useState({
@@ -22,11 +25,11 @@ const App: React.FC = props => {
     <ThemeContext.Provider value={state}>
       <Router>
         <Switch>
-          <Route exact path="/" component={Page} />
-          <Route exact path="/:programId" component={Page} />
-          <Route exact path="/:programId/browse/:season" component={Page} />
-          <Route exact path="/:programId/search" component={Page} />
-          <Route exact path="/:programId/:episodeId" component={Page} />
+          <Route exact path="/" component={LandingPage} />
+          <Route exact path="/:programId" component={LandingPage} />
+          <Route exact path="/:programId/browse/:season" component={Browse} />
+          <Route exact path="/:programId/search" component={Search} />
+          <Route exact path="/:programId/:episodeId" component={Detail} />
         </Switch>
       </Router>
     </ThemeContext.Provider>

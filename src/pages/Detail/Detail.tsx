@@ -7,10 +7,10 @@ import BroadcastDate from '../../components/BroadcastDate'
 import GuestStars from '../../components/GuestStars/GuestStars'
 import LoadingIndicator from '../../components/LoadingIndicator'
 import styled from '@emotion/styled'
+import { RouteComponentProps } from 'react-router'
 
-interface Props {
-  episode: Episode | null
-  id: string
+interface MatchProps {
+  episodeId: string
   programId: string
 }
 
@@ -20,30 +20,27 @@ const Wrapper = styled.div`
   }
 `
 
-const Detail: React.FC<Props> = ({ episode, id, programId }) => {
-  const [e, setEpisode] = React.useState<Episode | null>(null)
+const Detail: React.FC<RouteComponentProps<MatchProps>> = props => {
+  const { episodeId, programId } = props.match.params
+  const [e, setEpisode] = React.useState<Episode | undefined>(undefined)
 
-  const fetchEpisode = (providedEpisode: Episode | null) => {
-    if (providedEpisode === null) {
-      let query: EpisodeQueryParams = {
-        programId: programId,
-        id: id,
-      }
-
-      queryFetch(query).then(episodeJSON => setEpisode(episodeJSON[0]))
-    } else {
-      setEpisode(providedEpisode)
+  const fetchEpisode = (providedEpisodeId: string): void => {
+    const query: EpisodeQueryParams = {
+      programId: programId,
+      id: providedEpisodeId,
     }
+    queryFetch(query).then(episodeJSON => setEpisode(episodeJSON[0]))
   }
 
   React.useEffect((): void => {
-    fetchEpisode(episode)
-  }, [episode])
+    fetchEpisode(episodeId)
+  }, [episodeId])
 
   const renderDisplay = (): JSX.Element => {
-    if (e === null) {
+    if (!e) {
       return <LoadingIndicator />
     } else {
+      console.log('E: ', e)
       return (
         <Wrapper>
           <h1>{e.title}</h1>
