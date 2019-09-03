@@ -86,7 +86,7 @@ const GlobalBase: React.FC = props => {
           }
 
           img {
-            border: 1px solid #333;
+            border: 1px solid #999;
             padding: 5px;
             box-shadow: 1px 3px 4px rgba(0, 0, 0, 0.25);
             background-color: #fff;

@@ -64,6 +64,7 @@ const Browse: React.FC<RouteComponentProps<Props>> = props => {
     if (location.state && location.state.episodes) {
       setEpisodes(location.state.episodes)
     } else {
+      setEpisodes([])
       interface SeasonQuery {
         programId: string
         season: number

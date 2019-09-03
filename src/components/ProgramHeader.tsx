@@ -25,6 +25,12 @@ const Wrapper = styled.div`
       margin: 0 0.5rem 0 0;
     }
   }
+
+  @media only screen and (max-device-width: 800px) {
+    a {
+      margin: 0 5px;
+    }
+  }
 `
 
 enum ProgramLinkType {
