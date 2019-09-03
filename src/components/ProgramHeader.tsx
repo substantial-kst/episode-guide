@@ -1,4 +1,4 @@
-import React, { Fragment, useContext } from 'react'
+import React, { useContext } from 'react'
 import { Link, NavLink } from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons'
@@ -16,21 +16,32 @@ const Wrapper = styled.div`
     }
   }
 `
-const renderBrowse = (themeKey: string) => {
+
+enum ProgramLinkType {
+  'browse' = 'Browse',
+  'search' = 'Search',
+}
+
+const renderProgramLink = (
+  themeKey: string,
+  linkType: ProgramLinkType
+): React.ReactElement => {
   if (themeKey && themeKey !== 'default') {
-    return <NavLink to={`/${themeKey}/browse/`}>Browse</NavLink>
+    return <NavLink to={`/${themeKey}/${linkType}/`}>{linkType}</NavLink>
+  } else {
+    return <></>
   }
 }
 
-const ProgramHeader: React.FC = props => {
+const ProgramHeader: React.FC = () => {
   const Theme = useContext(ThemeContext)
   return (
     <Wrapper>
       <Link to="/">
         <FontAwesomeIcon icon={faArrowLeft} /> Home
       </Link>
-      {renderBrowse(Theme.currentTheme.themeKey)}
-      <NavLink to={`/${Theme.currentTheme.themeKey}/search`}>Search</NavLink>
+      {renderProgramLink(Theme.currentTheme.themeKey, ProgramLinkType.browse)}
+      {renderProgramLink(Theme.currentTheme.themeKey, ProgramLinkType.search)}
     </Wrapper>
   )
 }

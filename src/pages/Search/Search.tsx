@@ -6,6 +6,7 @@ import OmniboxSearch from '../../components/OmniboxSearch'
 import { RouteComponentProps } from 'react-router'
 import Basic from '../../layouts/Basic'
 import ProgramHeader from '../../components/ProgramHeader'
+import { ThemeContext } from '../../context/ThemeContext'
 
 type Props = {
   programId: string
@@ -26,6 +27,9 @@ const Wrapper = styled.div`
 const Search: React.FC<RouteComponentProps<Props>> = props => {
   const { programId } = props.match.params
   const initialState: Episode[] = []
+  const Theme = useContext(ThemeContext)
+
+  Theme.setTheme(programId)
 
   const [results, setResult] = useState(initialState)
 

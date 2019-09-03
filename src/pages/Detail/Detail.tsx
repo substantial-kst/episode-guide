@@ -46,7 +46,6 @@ const Detail: React.FC<RouteComponentProps<MatchParams>> = props => {
     if (!e) {
       return <LoadingIndicator />
     } else {
-      console.log('E: ', e)
       return (
         <Wrapper>
           <h1>{e.title}</h1>

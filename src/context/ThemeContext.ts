@@ -8,11 +8,6 @@ export interface ThemeObj {
   font: string
 }
 
-interface ThemeContext {
-  currentTheme: ThemeObj
-  setTheme: Function
-}
-
 export const themes: Record<string, ThemeObj> = {
   default: {
     themeKey: 'default',
