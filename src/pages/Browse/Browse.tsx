@@ -1,80 +1,99 @@
-import React, { useEffect, useState } from 'react';
-import { queryFetch, fetchSeasons } from '../../utils/fetch';
-import SeasonList from '../../components/SeasonList';
-import EpisodeList from '../../components/EpisodeList';
-import styled from '@emotion/styled';
+import React, { useContext, useEffect, useState } from 'react'
+import { queryFetch, fetchSeasons } from '../../utils/fetch'
+import ProgramHeader from '../../components/ProgramHeader'
+import SeasonList from '../../components/SeasonList'
+import EpisodeList from '../../components/EpisodeList'
+import styled from '@emotion/styled'
+import { RouteComponentProps } from 'react-router'
+import Basic from '../../layouts/Basic'
+import { ThemeContext } from '../../context/ThemeContext'
 
 interface Props {
-  programId: string;
-  seasonNumber: number;
+  programId: string
+  season: string
 }
 
 interface BrowseState {
-  episodes: Episode[];
-  seasons: Season[];
+  episodes: Episode[]
+  seasons: Season[]
 }
 
 const Wrapper = styled.div`
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
+  justify-content: space-between;
 
   h2 {
     width: 100%;
     margin-bottom: 1em;
   }
-`;
+`
 
-const Browse: React.FunctionComponent<Props> = props => {
-  let initialState: BrowseState = {
+const Browse: React.FC<RouteComponentProps<Props>> = props => {
+  const { programId } = props.match.params
+  let { season } = props.match.params
+
+  if (!season) {
+    season = '1'
+  }
+
+  const initialState: BrowseState = {
     episodes: [],
     seasons: [],
-  };
-  const [seasons, setSeasons] = useState(initialState.seasons);
-  const [episodes, setEpisodes] = useState(initialState.episodes);
+  }
+  const Theme = useContext(ThemeContext)
+
+  Theme.setTheme(programId)
+
+  const [seasons, setSeasons] = useState(initialState.seasons)
+  const [episodes, setEpisodes] = useState(initialState.episodes)
 
   const loadSeasons = (): void => {
-    if (props.programId) {
-      fetchSeasons({ programId: props.programId }).then(apiResults => {
-        setSeasons(apiResults);
-      });
+    if (programId) {
+      fetchSeasons({ programId: programId }).then(apiResults => {
+        setSeasons(apiResults)
+      })
     }
-  };
+  }
 
-  const loadEpisodes = (season: number): void => {
-    interface seasonQuery {
-      programId: string;
-      season: number;
+  const loadEpisodes = (seasonNumber: string): void => {
+    interface SeasonQuery {
+      programId: string
+      season: number
     }
 
-    const q: seasonQuery = {
-      programId: props.programId,
-      season,
-    };
+    const q: SeasonQuery = {
+      programId: programId,
+      season: parseInt(seasonNumber),
+    }
 
     queryFetch(q).then(apiResults => {
-      setEpisodes(apiResults);
-    });
-  };
+      setEpisodes(apiResults)
+    })
+  }
 
   useEffect(() => {
-    loadSeasons();
-  }, [props.programId]);
+    loadSeasons()
+  }, [programId])
   useEffect(() => {
-    loadEpisodes(props.seasonNumber);
-  }, [props.seasonNumber]);
+    loadEpisodes(season)
+  }, [season])
 
   return (
-    <Wrapper>
-      <h2>Browse Season {props.seasonNumber} Episodes</h2>
-      <SeasonList
-        selectedSeasonNumber={props.seasonNumber}
-        seasons={seasons}
-        programId={props.programId}
-      />
-      <EpisodeList episodes={episodes} />
-    </Wrapper>
-  );
-};
+    <Basic data-theme-key={Theme.currentTheme.themeKey}>
+      <ProgramHeader />
+      <Wrapper>
+        <h2>Browse Season {season} Episodes</h2>
+        <SeasonList
+          selectedSeasonNumber={parseInt(season)}
+          seasons={seasons}
+          programId={programId}
+        />
+        <EpisodeList episodes={episodes} />
+      </Wrapper>
+    </Basic>
+  )
+}
 
-export default Browse;
+export default Browse

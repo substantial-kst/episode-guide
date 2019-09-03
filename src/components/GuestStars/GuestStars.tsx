@@ -1,12 +1,12 @@
-import React from 'react';
+import React from 'react'
 
 export interface Props {
-  guests: string[];
+  guests: string[]
 }
 
 const GuestStars: React.FC<Props> = ({ guests }) => {
   if (!(guests && guests.length > 0)) {
-    return <></>;
+    return <></>
   } else {
     return (
       <>
@@ -17,8 +17,8 @@ const GuestStars: React.FC<Props> = ({ guests }) => {
           ))}
         </ul>
       </>
-    );
+    )
   }
-};
+}
 
-export default GuestStars;
+export default GuestStars

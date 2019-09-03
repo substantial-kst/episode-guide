@@ -1,10 +1,12 @@
-import React from 'react';
-import styled from '@emotion/styled';
-import ImageLink from '../../components/ImageLink';
+import React, { useContext } from 'react'
+import styled from '@emotion/styled'
+import ImageLink from '../../components/ImageLink'
+import { ThemeContext } from '../../context/ThemeContext'
+import Basic from '../../layouts/Basic'
 
 interface ShowLink {
-  showCode: string;
-  title: string;
+  showCode: string
+  title: string
 }
 
 const Wrapper = styled.div`
@@ -19,7 +21,7 @@ const Wrapper = styled.div`
   left: 10%;
   width: 80%;
   text-align: center;
-`;
+`
 
 const showMapping: ShowLink[] = [
   {
@@ -46,18 +48,25 @@ const showMapping: ShowLink[] = [
     //     showCode: 'fra',
     //     title: 'Frasier'
   },
-];
+]
 
-const LandingPage: React.FC = props => (
-  <Wrapper>
-    {showMapping.map(show => (
-      <ImageLink
-        showCode={show.showCode}
-        title={show.title}
-        key={show.showCode}
-      />
-    ))}
-  </Wrapper>
-);
+const LandingPage: React.FC = props => {
+  const Theme = useContext(ThemeContext)
 
-export default LandingPage;
+  Theme.setTheme('')
+  return (
+    <Basic>
+      <Wrapper>
+        {showMapping.map(show => (
+          <ImageLink
+            showCode={show.showCode}
+            title={show.title}
+            key={show.showCode}
+          />
+        ))}
+      </Wrapper>
+    </Basic>
+  )
+}
+
+export default LandingPage

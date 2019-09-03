@@ -1,10 +1,10 @@
-import React, { useContext } from 'react';
-import { ThemeContext, ThemeObj } from '../context/ThemeContext';
-import { Global, css } from '@emotion/core';
+import React, { useContext } from 'react'
+import { ThemeContext, ThemeObj } from '../context/ThemeContext'
+import { Global, css } from '@emotion/core'
 
 const linkFont = (currentTheme: any) => {
   if (!!currentTheme.font) {
-    const fontName = currentTheme.font.replace('+', ' ').replace(/:[0-9]*/, '');
+    const fontName = currentTheme.font.replace('+', ' ').replace(/:[0-9]*/, '')
     return (
       <div>
         <link
@@ -23,13 +23,13 @@ const linkFont = (currentTheme: any) => {
                 `}
         />
       </div>
-    );
+    )
   }
-  return;
-};
+  return
+}
 
 const GlobalBase: React.FC = props => {
-  const { currentTheme } = useContext(ThemeContext);
+  const { currentTheme } = useContext(ThemeContext)
 
   return (
     <div id="theme-background" className={currentTheme.themeKey}>
@@ -110,7 +110,7 @@ const GlobalBase: React.FC = props => {
         `}
       />
     </div>
-  );
-};
+  )
+}
 
-export default GlobalBase;
+export default GlobalBase

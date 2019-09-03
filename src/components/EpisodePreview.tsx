@@ -1,12 +1,12 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import EpisodeIdentifier from './EpisodeIdentifier';
-import EpisodeImage from './EpisodeImage';
-import TextSummary from './TextSummary';
-import styled from '@emotion/styled';
+import React from 'react'
+import { Link } from 'react-router-dom'
+import EpisodeIdentifier from './EpisodeIdentifier'
+import EpisodeImage from './EpisodeImage'
+import TextSummary from './TextSummary'
+import styled from '@emotion/styled'
 
 interface Props {
-  episode: Episode;
+  episode: Episode
 }
 
 const Wrapper = styled.div`
@@ -20,11 +20,11 @@ const Wrapper = styled.div`
   > * {
     line-height: 1.6em;
   }
-`;
+`
 
 const getEpisodeRoute = (episode: Episode): string => {
-  return `/${episode.showCode}/${episode.id}`;
-};
+  return `/${episode.showCode}/detail/${episode.id}`
+}
 
 const EpisodePreview: React.FC<Props> = ({ episode }) => {
   return (
@@ -41,11 +41,11 @@ const EpisodePreview: React.FC<Props> = ({ episode }) => {
         <TextSummary summary={episode.summary} context={'preview'} />
       </Link>
     </Wrapper>
-  );
-};
+  )
+}
 
-export default EpisodePreview;
+export default EpisodePreview
 
 export const _testUtils = {
   getEpisodeRoute,
-};
+}

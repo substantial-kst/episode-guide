@@ -1,51 +1,54 @@
-import React from 'react';
-import { queryFetch, EpisodeQueryParams } from '../../utils/fetch';
-import EpisodeIdentifier from '../../components/EpisodeIdentifier';
-import EpisodeImage from '../../components/EpisodeImage';
-import TextSummary from '../../components/TextSummary';
-import BroadcastDate from '../../components/BroadcastDate';
-import GuestStars from '../../components/GuestStars/GuestStars';
-import LoadingIndicator from '../../components/LoadingIndicator';
-import styled from "@emotion/styled";
+import React, { useContext } from 'react'
+import { queryFetch, EpisodeQueryParams } from '../../utils/fetch'
+import EpisodeIdentifier from '../../components/EpisodeIdentifier'
+import EpisodeImage from '../../components/EpisodeImage'
+import TextSummary from '../../components/TextSummary'
+import BroadcastDate from '../../components/BroadcastDate'
+import GuestStars from '../../components/GuestStars/GuestStars'
+import LoadingIndicator from '../../components/LoadingIndicator'
+import styled from '@emotion/styled'
+import { RouteComponentProps } from 'react-router'
+import { ThemeContext } from '../../context/ThemeContext'
+import Basic from '../../layouts/Basic'
+import ProgramHeader from '../../components/ProgramHeader'
 
-interface Props {
-  episode: Episode|null;
-  id: string;
-  programId: string;
+interface MatchParams {
+  episodeId: string
+  programId: string
 }
 
 const Wrapper = styled.div`
-    h1 {
-        margin-top:0;
-    }
-`;
+  h1 {
+    margin-top: 0;
+  }
+`
 
-const Detail: React.FC<Props> = ({ episode, id, programId }) => {
-  const [e, setEpisode] = React.useState<Episode | null>(null);
+const Detail: React.FC<RouteComponentProps<MatchParams>> = props => {
+  const { episodeId, programId } = props.match.params
+  const Theme = useContext(ThemeContext)
+
+  Theme.setTheme(programId)
+  const [e, setEpisode] = React.useState<Episode | undefined>(undefined)
+
+  const fetchEpisode = (providedEpisodeId: string): void => {
+    const query: EpisodeQueryParams = {
+      programId: programId,
+      id: providedEpisodeId,
+    }
+    queryFetch(query).then(episodeJSON => setEpisode(episodeJSON[0]))
+  }
 
   React.useEffect((): void => {
-    fetchEpisode();
-  }, []);
+    fetchEpisode(episodeId)
+  }, [episodeId])
 
-  const fetchEpisode = () => {
-    if (episode === null) {
-      let query: EpisodeQueryParams = {
-        programId: programId,
-        id: id,
-      };
-
-      queryFetch(query).then(episodeJSON => setEpisode(episodeJSON[0]));
+  const renderDetails = (): JSX.Element => {
+    if (!e) {
+      return <LoadingIndicator />
     } else {
-      setEpisode(episode);
-    }
-  };
-
-  const renderDisplay = (): JSX.Element => {
-    if (e === null) {
-      return <LoadingIndicator />;
-    } else {
+      console.log('E: ', e)
       return (
-          <Wrapper>
+        <Wrapper>
           <h1>{e.title}</h1>
           <EpisodeImage imageUrl={e.image} />
           <BroadcastDate
@@ -59,12 +62,17 @@ const Detail: React.FC<Props> = ({ episode, id, programId }) => {
             <span key={i}>{character}</span>
           ))}
           <GuestStars guests={e.guests} />
-          </Wrapper>
-      );
+        </Wrapper>
+      )
     }
-  };
+  }
 
-  return renderDisplay();
-};
+  return (
+    <Basic data-theme-key={Theme.currentTheme.themeKey}>
+      <ProgramHeader />
+      <Wrapper>{renderDetails()}</Wrapper>
+    </Basic>
+  )
+}
 
-export default Detail;
+export default Detail

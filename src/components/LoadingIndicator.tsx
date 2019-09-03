@@ -1,5 +1,5 @@
-import React from 'react';
-import styled from '@emotion/styled';
+import React from 'react'
+import styled from '@emotion/styled'
 
 const Wrapper = styled.div`
   width: 100%;
@@ -36,12 +36,12 @@ const Wrapper = styled.div`
     animation-timing-function: linear;
     animation-iteration-count: infinite;
   }
-`;
+`
 
 const LoadingIndicator: React.FC = props => (
   <Wrapper>
     <div className={'indicator'} />
   </Wrapper>
-);
+)
 
-export default LoadingIndicator;
+export default LoadingIndicator
