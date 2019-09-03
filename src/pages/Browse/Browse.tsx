@@ -31,6 +31,8 @@ const Wrapper = styled.div`
 `
 
 const Browse: React.FC<RouteComponentProps<Props>> = props => {
+  const { location } = props
+  const { history } = props
   const { programId } = props.match.params
   let { season } = props.match.params
 
@@ -58,19 +60,25 @@ const Browse: React.FC<RouteComponentProps<Props>> = props => {
   }
 
   const loadEpisodes = (seasonNumber: string): void => {
-    interface SeasonQuery {
-      programId: string
-      season: number
-    }
+    console.log('LOCATION: ', location)
+    if (location.state && location.state.episodes) {
+      setEpisodes(location.state.episodes)
+    } else {
+      interface SeasonQuery {
+        programId: string
+        season: number
+      }
 
-    const q: SeasonQuery = {
-      programId: programId,
-      season: parseInt(seasonNumber),
-    }
+      const q: SeasonQuery = {
+        programId: programId,
+        season: parseInt(seasonNumber),
+      }
 
-    queryFetch(q).then(apiResults => {
-      setEpisodes(apiResults)
-    })
+      queryFetch(q).then(apiResults => {
+        history.replace(location.pathname, { episodes: apiResults })
+        setEpisodes(apiResults)
+      })
+    }
   }
 
   useEffect(() => {
@@ -82,7 +90,7 @@ const Browse: React.FC<RouteComponentProps<Props>> = props => {
 
   return (
     <Basic data-theme-key={Theme.currentTheme.themeKey}>
-      <ProgramHeader />
+      <ProgramHeader backHandler={history.goBack} />
       <Wrapper>
         <h2>Browse Season {season} Episodes</h2>
         <SeasonList

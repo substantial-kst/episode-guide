@@ -25,6 +25,7 @@ const Wrapper = styled.div`
 `
 
 const Search: React.FC<RouteComponentProps<Props>> = props => {
+  const { history } = props
   const { programId } = props.match.params
   const initialState: Episode[] = []
   const Theme = useContext(ThemeContext)
@@ -49,7 +50,7 @@ const Search: React.FC<RouteComponentProps<Props>> = props => {
 
   return (
     <Basic>
-      <ProgramHeader />
+      <ProgramHeader backHandler={history.goBack} />
       <Wrapper>
         <h2>Search Page</h2>
         <OmniboxSearch searchHandler={searchHandler} />

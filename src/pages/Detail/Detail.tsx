@@ -24,6 +24,7 @@ const Wrapper = styled.div`
 `
 
 const Detail: React.FC<RouteComponentProps<MatchParams>> = props => {
+  const { history } = props
   const { episodeId, programId } = props.match.params
   const Theme = useContext(ThemeContext)
 
@@ -68,7 +69,7 @@ const Detail: React.FC<RouteComponentProps<MatchParams>> = props => {
 
   return (
     <Basic data-theme-key={Theme.currentTheme.themeKey}>
-      <ProgramHeader />
+      <ProgramHeader backHandler={history.goBack} />
       <Wrapper>{renderDetails()}</Wrapper>
     </Basic>
   )

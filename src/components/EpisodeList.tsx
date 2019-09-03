@@ -1,5 +1,4 @@
 import * as React from 'react'
-import { useContext } from 'react'
 import EpisodePreview from './EpisodePreview'
 import styled from '@emotion/styled'
 import LoadingIndicator from './LoadingIndicator'
@@ -9,7 +8,7 @@ interface Props {
 }
 
 const Wrapper = styled.div`
-  width: 70%;
+  width: 80%;
 `
 
 const renderEpisodePreviews = (props: Props) => {
@@ -22,6 +21,8 @@ const renderEpisodePreviews = (props: Props) => {
   }
 }
 
-export default (props: Props) => {
-  return <Wrapper>{renderEpisodePreviews(props)}</Wrapper>
-}
+const EpisodeList = (props: Props) => (
+  <Wrapper>{renderEpisodePreviews(props)}</Wrapper>
+)
+
+export default EpisodeList
