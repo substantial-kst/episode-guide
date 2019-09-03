@@ -1,9 +1,12 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { queryFetch, fetchSeasons } from '../../utils/fetch'
+import ProgramHeader from '../../components/ProgramHeader'
 import SeasonList from '../../components/SeasonList'
 import EpisodeList from '../../components/EpisodeList'
 import styled from '@emotion/styled'
 import { RouteComponentProps } from 'react-router'
+import Basic from '../../layouts/Basic'
+import { ThemeContext } from '../../context/ThemeContext'
 
 interface Props {
   programId: string
@@ -19,6 +22,7 @@ const Wrapper = styled.div`
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
+  justify-content: space-between;
 
   h2 {
     width: 100%;
@@ -27,12 +31,21 @@ const Wrapper = styled.div`
 `
 
 const Browse: React.FC<RouteComponentProps<Props>> = props => {
-  console.log('PROPS: ', props)
-  const { programId, season } = props.match.params
+  const { programId } = props.match.params
+  let { season } = props.match.params
+
+  if (!season) {
+    season = '1'
+  }
+
   const initialState: BrowseState = {
     episodes: [],
     seasons: [],
   }
+  const Theme = useContext(ThemeContext)
+
+  Theme.setTheme(programId)
+
   const [seasons, setSeasons] = useState(initialState.seasons)
   const [episodes, setEpisodes] = useState(initialState.episodes)
 
@@ -68,15 +81,18 @@ const Browse: React.FC<RouteComponentProps<Props>> = props => {
   }, [season])
 
   return (
-    <Wrapper>
-      <h2>Browse Season {season} Episodes</h2>
-      <SeasonList
-        selectedSeasonNumber={parseInt(season)}
-        seasons={seasons}
-        programId={programId}
-      />
-      <EpisodeList episodes={episodes} />
-    </Wrapper>
+    <Basic data-theme-key={Theme.currentTheme.themeKey}>
+      <ProgramHeader />
+      <Wrapper>
+        <h2>Browse Season {season} Episodes</h2>
+        <SeasonList
+          selectedSeasonNumber={parseInt(season)}
+          seasons={seasons}
+          programId={programId}
+        />
+        <EpisodeList episodes={episodes} />
+      </Wrapper>
+    </Basic>
   )
 }
 

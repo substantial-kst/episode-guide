@@ -1,16 +1,16 @@
 import React from 'react'
 
 export interface ThemeObj {
-    themeKey: string
-    color: string
-    linkImg: string
-    bgImg: string
-    font: string
+  themeKey: string
+  color: string
+  linkImg: string
+  bgImg: string
+  font: string
 }
 
-export interface IThemeContext {
-    currentTheme: ThemeObj
-    setTheme: Function
+interface ThemeContext {
+  currentTheme: ThemeObj
+  setTheme: Function
 }
 
 export const themes: Record<string, ThemeObj> = {
@@ -40,12 +40,12 @@ export const themes: Record<string, ThemeObj> = {
 let currentTheme: ThemeObj = themes.koth
 
 export const setTheme = (themeKey: string) => {
-  if (themes.hasOwnProperty(themeKey)) {
-      currentTheme = themes[themeKey]
+  if (themeKey in themes) {
+    currentTheme = themes[themeKey]
   } else {
-      currentTheme = themes.default
+    currentTheme = themes.default
   }
-    return currentTheme
+  return currentTheme
 }
 
 export const ThemeContext = React.createContext({

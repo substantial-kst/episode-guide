@@ -23,7 +23,7 @@ const Wrapper = styled.div`
 `
 
 const getEpisodeRoute = (episode: Episode): string => {
-  return `/${episode.showCode}/${episode.id}`
+  return `/${episode.showCode}/detail/${episode.id}`
 }
 
 const EpisodePreview: React.FC<Props> = ({ episode }) => {

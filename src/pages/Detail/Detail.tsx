@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { queryFetch, EpisodeQueryParams } from '../../utils/fetch'
 import EpisodeIdentifier from '../../components/EpisodeIdentifier'
 import EpisodeImage from '../../components/EpisodeImage'
@@ -8,8 +8,11 @@ import GuestStars from '../../components/GuestStars/GuestStars'
 import LoadingIndicator from '../../components/LoadingIndicator'
 import styled from '@emotion/styled'
 import { RouteComponentProps } from 'react-router'
+import { ThemeContext } from '../../context/ThemeContext'
+import Basic from '../../layouts/Basic'
+import ProgramHeader from '../../components/ProgramHeader'
 
-interface MatchProps {
+interface MatchParams {
   episodeId: string
   programId: string
 }
@@ -20,8 +23,11 @@ const Wrapper = styled.div`
   }
 `
 
-const Detail: React.FC<RouteComponentProps<MatchProps>> = props => {
+const Detail: React.FC<RouteComponentProps<MatchParams>> = props => {
   const { episodeId, programId } = props.match.params
+  const Theme = useContext(ThemeContext)
+
+  Theme.setTheme(programId)
   const [e, setEpisode] = React.useState<Episode | undefined>(undefined)
 
   const fetchEpisode = (providedEpisodeId: string): void => {
@@ -36,7 +42,7 @@ const Detail: React.FC<RouteComponentProps<MatchProps>> = props => {
     fetchEpisode(episodeId)
   }, [episodeId])
 
-  const renderDisplay = (): JSX.Element => {
+  const renderDetails = (): JSX.Element => {
     if (!e) {
       return <LoadingIndicator />
     } else {
@@ -61,7 +67,12 @@ const Detail: React.FC<RouteComponentProps<MatchProps>> = props => {
     }
   }
 
-  return renderDisplay()
+  return (
+    <Basic data-theme-key={Theme.currentTheme.themeKey}>
+      <ProgramHeader />
+      <Wrapper>{renderDetails()}</Wrapper>
+    </Basic>
+  )
 }
 
 export default Detail

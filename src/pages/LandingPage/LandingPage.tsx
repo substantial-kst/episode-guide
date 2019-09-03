@@ -1,6 +1,8 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import styled from '@emotion/styled'
 import ImageLink from '../../components/ImageLink'
+import { ThemeContext } from '../../context/ThemeContext'
+import Basic from '../../layouts/Basic'
 
 interface ShowLink {
   showCode: string
@@ -48,16 +50,23 @@ const showMapping: ShowLink[] = [
   },
 ]
 
-const LandingPage: React.FC = props => (
-  <Wrapper>
-    {showMapping.map(show => (
-      <ImageLink
-        showCode={show.showCode}
-        title={show.title}
-        key={show.showCode}
-      />
-    ))}
-  </Wrapper>
-)
+const LandingPage: React.FC = props => {
+  const Theme = useContext(ThemeContext)
+
+  Theme.setTheme('')
+  return (
+    <Basic>
+      <Wrapper>
+        {showMapping.map(show => (
+          <ImageLink
+            showCode={show.showCode}
+            title={show.title}
+            key={show.showCode}
+          />
+        ))}
+      </Wrapper>
+    </Basic>
+  )
+}
 
 export default LandingPage
