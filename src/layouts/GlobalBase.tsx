@@ -2,8 +2,8 @@ import React, { useContext } from 'react'
 import { ThemeContext, ThemeObj } from '../context/ThemeContext'
 import { Global, css } from '@emotion/core'
 
-const linkFont = (currentTheme: any) => {
-  if (!!currentTheme.font) {
+const linkFont = (currentTheme: ThemeObj): React.ReactElement => {
+  if (currentTheme.font) {
     const fontName = currentTheme.font.replace('+', ' ').replace(/:[0-9]*/, '')
     return (
       <div>
@@ -25,7 +25,7 @@ const linkFont = (currentTheme: any) => {
       </div>
     )
   }
-  return
+  return <></>
 }
 
 const GlobalBase: React.FC = props => {
@@ -77,6 +77,17 @@ const GlobalBase: React.FC = props => {
             letter-spacing: 0.01em;
           }
 
+          h2 {
+            font-size: 2rem;
+            line-height: 1.4em;
+            letter-spacing: 0.01em;
+          }
+
+          h3 {
+            font-size: 1.6rem;
+            line-height: 1.4em;
+          }
+
           ul,
           ol {
             margin: auto;
@@ -99,8 +110,8 @@ const GlobalBase: React.FC = props => {
             height: 100%;
             background-position: center center;
             background-repeat: no-repeat;
-            filter: blur(5px);
-            opacity: 0.25;
+            filter: blur(5px) brightness(0.85);
+            opacity: 0.35;
             pointer-events: none;
             z-index: -1;
             background-image: url(${currentTheme.bgImg});

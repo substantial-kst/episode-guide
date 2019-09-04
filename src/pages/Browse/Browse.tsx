@@ -61,7 +61,12 @@ const Browse: React.FC<RouteComponentProps<Props>> = props => {
 
   const loadEpisodes = (seasonNumber: string): void => {
     console.log('LOCATION: ', location)
-    if (location.state && location.state.episodes) {
+    if (
+      location.state &&
+      location.state.episodes &&
+      location.state.episodes.length &&
+      location.state.episodes.length > 0
+    ) {
       setEpisodes(location.state.episodes)
     } else {
       setEpisodes([])

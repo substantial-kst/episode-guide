@@ -18,16 +18,16 @@ export const themes: Record<string, ThemeObj> = {
   },
   koth: {
     themeKey: 'koth',
-    color: '#de1000',
+    color: '#ff1000',
     bgImg: '/images/koth/background.jpg',
     font: 'Hepta+Slab:600',
     linkImg: '/images/koth/link.jpg',
   },
   bburg: {
     themeKey: 'bburg',
-    color: '#fade00',
+    color: '#fff000',
     bgImg: '/images/bburg/background.jpg',
-    font: 'Secular+One',
+    font: 'Mali:700',
     linkImg: '/images/bburg/link.jpg',
   },
 }
