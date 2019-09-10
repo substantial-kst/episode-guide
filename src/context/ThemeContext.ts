@@ -25,7 +25,7 @@ export const themes: Record<string, ThemeObj> = {
   },
   bburg: {
     themeKey: 'bburg',
-    color: '#fff000',
+    color: '#ff00ac',
     bgImg: '/images/bburg/background.jpg',
     font: 'Mali:700',
     linkImg: '/images/bburg/link.jpg',

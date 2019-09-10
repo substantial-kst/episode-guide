@@ -118,6 +118,9 @@ const GlobalBase: React.FC = props => {
             top: 0;
             left: 0;
           }
+          button {
+            background-color: ${currentTheme.color};
+          }
         `}
       />
     </div>
