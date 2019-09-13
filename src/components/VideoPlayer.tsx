@@ -1,4 +1,4 @@
-import React, { createRef } from 'react'
+import React, { createRef, useState, ReactElement } from 'react'
 import styled from '@emotion/styled'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
@@ -9,7 +9,9 @@ import {
   faVolumeUp,
   faVolumeMute,
   faExpand,
+  faCompress,
 } from '@fortawesome/free-solid-svg-icons'
+import { IconProp } from '@fortawesome/fontawesome-svg-core'
 
 const Wrapper = styled.figure`
   margin: 1rem 10%;
@@ -64,73 +66,78 @@ const player = createRef<HTMLVideoElement>()
 const progress = createRef<HTMLProgressElement>()
 const progressBar = createRef<HTMLSpanElement>()
 
-const playPause: Function = async (): Promise<void> => {
-  let promise
-  if (player.current) {
-    if (player.current.paused || player.current.ended) {
-      promise = player.current.play()
-    } else {
-      promise = player.current.pause()
-    }
-  } else {
-    promise = Promise.resolve()
-  }
-  return promise
+interface ButtonProps {
+  icon: IconProp
+  handler: Function
 }
 
-const stop: Function = async (): Promise<void> => {
-  let promise
-  if (player.current && progress.current) {
-    promise = player.current.pause()
-    player.current.currentTime = 0
-    progress.current.value = 0
-  } else {
-    promise = Promise.resolve()
+const PlayerButton: React.FC<ButtonProps> = ({ icon, handler }) => (
+  <button type="button" onClick={e => handler(e)}>
+    <FontAwesomeIcon icon={icon} />
+  </button>
+)
+
+interface VideoControlsProps {
+  player: HTMLVideoElement | null
+  status: string | null
+  duration: number | null
+  position: number | null
+  handlers: {
+    playPause: Function
+    stop: Function
   }
-  return promise
 }
 
-const renderControls = () => {
+const VideoControls: React.FC<VideoControlsProps> = ({
+  player,
+  status,
+  duration,
+  position,
+  handlers,
+}) => {
   if (!document.createElement('video').canPlayType) {
     return <></>
   } else {
-    if (player.current) player.current.removeAttribute('controls')
+    if (player) player.removeAttribute('controls')
+    if (progress.current && duration) {
+      progress.current.setAttribute('max', duration.toString())
+    }
     return (
       <ul id="video-controls" className="controls">
         <li>
-          <button id="playpause" type="button" onClick={e => playPause(e)}>
-            <FontAwesomeIcon icon={faPlay} />
-          </button>
+          <PlayerButton
+            icon={status === 'playing' ? faPause : faPlay}
+            handler={() => {
+              handlers.playPause()
+              console.log('Player status: ', status)
+            }}
+          />
         </li>
         <li>
-          <button id="stop" type="button" onClick={e => stop(e)}>
-            <FontAwesomeIcon icon={faStop} />
-          </button>
+          <PlayerButton
+            icon={faStop}
+            handler={() => {
+              handlers.stop()
+              console.log('Player status: ', status)
+            }}
+          />
         </li>
         <li className="progress">
           <progress id="progress" value="0" ref={progress}>
-            <span id="progress-bar" ref={progressBar}></span>
+            <span id="progress-bar" ref={progressBar} />
           </progress>
         </li>
         <li>
-          <button id="mute" type="button">
-            <FontAwesomeIcon icon={faVolumeMute} />
-          </button>
+          <PlayerButton icon={faVolumeMute} handler={() => {}} />
         </li>
         <li>
-          <button id="volinc" type="button">
-            <FontAwesomeIcon icon={faVolumeUp} />
-          </button>
+          <PlayerButton icon={faVolumeUp} handler={() => {}} />
         </li>
         <li>
-          <button id="voldec" type="button">
-            <FontAwesomeIcon icon={faVolumeDown} />
-          </button>
+          <PlayerButton icon={faVolumeDown} handler={() => {}} />
         </li>
         <li>
-          <button id="fs" type="button">
-            <FontAwesomeIcon icon={faExpand} />
-          </button>
+          <PlayerButton icon={faExpand} handler={() => {}} />
         </li>
       </ul>
     )
@@ -138,15 +145,58 @@ const renderControls = () => {
 }
 
 const VideoPlayer: React.FC = () => {
+  const [playerStatus, setStatus] = useState('stopped')
+  const [playerDuration, setDuration] = useState(0)
+  const [playerPosition, setPosition] = useState(0)
+
+  const playPause: Function = async (): Promise<void> => {
+    let promise
+    if (player.current) {
+      if (player.current.paused || player.current.ended) {
+        promise = player.current.play().then(() => setStatus('playing'))
+      } else {
+        promise = Promise.resolve(player.current.pause())
+        setStatus('paused')
+      }
+    } else {
+      promise = Promise.resolve()
+    }
+    return promise
+  }
+
+  const stop: Function = async (): Promise<void> => {
+    let promise
+    if (player.current && progress.current) {
+      promise = player.current.pause()
+      player.current.currentTime = 0
+      progress.current.value = 0
+      setStatus('paused')
+    } else {
+      promise = Promise.resolve()
+    }
+    return promise
+  }
+
+  const playerHandlers = {
+    playPause,
+    stop,
+  }
+
   if (player.current) {
     player.current.addEventListener('timeupdate', e => {
-      if (player.current && progress.current) {
-        progress.current.setAttribute('max', player.current.duration.toString())
+      if (player.current) {
+        setPosition(player.current.currentTime)
       }
+    })
+
+    player.current.addEventListener('pause', e => {
+      setStatus('paused')
     })
 
     player.current.addEventListener('timeupdate', e => {
       if (player.current && progress.current && progressBar.current) {
+        setPosition(player.current.currentTime)
+        setDuration(player.current.duration)
         progress.current.value = player.current.currentTime
         progressBar.current.style.width =
           Math.floor(
@@ -169,7 +219,13 @@ const VideoPlayer: React.FC = () => {
           type="video/mp4"
         />
       </video>
-      {renderControls()}
+      <VideoControls
+        player={player.current}
+        position={playerPosition}
+        duration={playerDuration}
+        status={playerStatus}
+        handlers={playerHandlers}
+      />
     </Wrapper>
   )
 }
