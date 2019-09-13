@@ -11,6 +11,7 @@ import { RouteComponentProps } from 'react-router'
 import { ThemeContext } from '../../context/ThemeContext'
 import Basic from '../../layouts/Basic'
 import ProgramHeader from '../../components/ProgramHeader'
+import VideoPlayer from '../../components/VideoPlayer'
 
 interface MatchParams {
   episodeId: string
@@ -70,7 +71,10 @@ const Detail: React.FC<RouteComponentProps<MatchParams>> = props => {
   return (
     <Basic data-theme-key={Theme.currentTheme.themeKey}>
       <ProgramHeader backHandler={history.goBack} />
-      <Wrapper>{renderDetails()}</Wrapper>
+      <Wrapper>
+        {renderDetails()}
+        <VideoPlayer />
+      </Wrapper>
     </Basic>
   )
 }
