@@ -11,6 +11,7 @@ import { RouteComponentProps } from 'react-router'
 import { ThemeContext } from '../../context/ThemeContext'
 import Basic from '../../layouts/Basic'
 import ProgramHeader from '../../components/ProgramHeader'
+import VideoPlayer from '../../components/Video/Player'
 
 interface MatchParams {
   episodeId: string
@@ -24,6 +25,7 @@ const Wrapper = styled.div`
 `
 
 const Detail: React.FC<RouteComponentProps<MatchParams>> = props => {
+  const { history } = props
   const { episodeId, programId } = props.match.params
   const Theme = useContext(ThemeContext)
 
@@ -46,7 +48,6 @@ const Detail: React.FC<RouteComponentProps<MatchParams>> = props => {
     if (!e) {
       return <LoadingIndicator />
     } else {
-      console.log('E: ', e)
       return (
         <Wrapper>
           <h1>{e.title}</h1>
@@ -69,8 +70,11 @@ const Detail: React.FC<RouteComponentProps<MatchParams>> = props => {
 
   return (
     <Basic data-theme-key={Theme.currentTheme.themeKey}>
-      <ProgramHeader />
-      <Wrapper>{renderDetails()}</Wrapper>
+      <ProgramHeader backHandler={history.goBack} />
+      <Wrapper>
+        {renderDetails()}
+        <VideoPlayer />
+      </Wrapper>
     </Basic>
   )
 }

@@ -1,20 +1,28 @@
 import * as React from 'react'
-import { useContext } from 'react'
 import EpisodePreview from './EpisodePreview'
 import styled from '@emotion/styled'
 import LoadingIndicator from './LoadingIndicator'
 
 interface Props {
   episodes: Episode[]
+  message?: string
 }
 
 const Wrapper = styled.div`
-  width: 70%;
+  width: 80%;
+
+  h5 {
+    margin: 1rem 5%;
+  }
 `
 
 const renderEpisodePreviews = (props: Props) => {
   if (props.episodes.length === 0) {
-    return <LoadingIndicator />
+    if (!props.message) {
+      return <LoadingIndicator />
+    } else {
+      return <h5>{props.message}</h5>
+    }
   } else {
     return props.episodes.map((ep: Episode, i: number) => (
       <EpisodePreview episode={ep} key={i} />
@@ -22,6 +30,8 @@ const renderEpisodePreviews = (props: Props) => {
   }
 }
 
-export default (props: Props) => {
-  return <Wrapper>{renderEpisodePreviews(props)}</Wrapper>
-}
+const EpisodeList = (props: Props) => (
+  <Wrapper>{renderEpisodePreviews(props)}</Wrapper>
+)
+
+export default EpisodeList

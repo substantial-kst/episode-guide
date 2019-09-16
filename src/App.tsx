@@ -6,9 +6,8 @@ import LandingPage from './pages/LandingPage/LandingPage'
 import Browse from './pages/Browse/Browse'
 import Search from './pages/Search/Search'
 import Detail from './pages/Detail/Detail'
-import Basic from './layouts/Basic'
 
-const App: React.FC = props => {
+const App: React.FC = () => {
   const [state, setState] = useState({
     currentTheme: themes.default,
     setTheme: function(themeKey: string) {
@@ -28,7 +27,7 @@ const App: React.FC = props => {
             path="/:programId/detail/:episodeId"
             component={Detail}
           />
-          <Route exact path="/:programId?" component={LandingPage} />
+          <Route path="/:programId?" component={LandingPage} />
         </Switch>
       </Router>
     </ThemeContext.Provider>

@@ -37,7 +37,6 @@ const EpisodePreview: React.FC<Props> = ({ episode }) => {
       >
         <EpisodeImage imageUrl={episode.image} size={'thumbnail'} />
         <h3>{episode.title}</h3>
-        <EpisodeIdentifier idString={episode.id} />
         <TextSummary summary={episode.summary} context={'preview'} />
       </Link>
     </Wrapper>
