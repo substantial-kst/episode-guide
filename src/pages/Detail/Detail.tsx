@@ -11,7 +11,7 @@ import { RouteComponentProps } from 'react-router'
 import { ThemeContext } from '../../context/ThemeContext'
 import Basic from '../../layouts/Basic'
 import ProgramHeader from '../../components/ProgramHeader'
-import VideoPlayer from '../../components/VideoPlayer'
+import VideoPlayer from '../../components/Video/Player'
 
 interface MatchParams {
   episodeId: string
