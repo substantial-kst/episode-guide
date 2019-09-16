@@ -1,5 +1,5 @@
 import { IconProp } from '@fortawesome/fontawesome-svg-core'
-import React, { createRef } from 'react'
+import React from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
   faExpand,
@@ -40,16 +40,10 @@ const VideoControls: React.FC<VideoControlsProps> = ({
   position,
   handlers,
 }) => {
-  const progress = createRef<HTMLProgressElement>()
-  const progressBar = createRef<HTMLSpanElement>()
-
   if (!document.createElement('video').canPlayType) {
     return <></>
   } else {
     if (player) player.removeAttribute('controls')
-    if (progress.current && duration) {
-      progress.current.setAttribute('max', duration.toString())
-    }
     return (
       <ul id="video-controls" className="controls">
         <li>
@@ -69,8 +63,19 @@ const VideoControls: React.FC<VideoControlsProps> = ({
           />
         </li>
         <li className="progress">
-          <progress id="progress" value="0" ref={progress}>
-            <span id="progress-bar" ref={progressBar} />
+          <progress
+            id="progress"
+            value={position ? position.toString() : '0'}
+            max={duration ? duration.toString() : '0'}
+          >
+            <span
+              id="progress-bar"
+              style={
+                position && duration
+                  ? { width: Math.floor((position / duration) * 100) + '%' }
+                  : {}
+              }
+            />
           </progress>
         </li>
         <li>
